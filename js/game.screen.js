@@ -47,11 +47,6 @@ function screenCalc(){
 	gscreen.screen.half.pw = gscreen.screen.pw>>1; 
 	gscreen.screen.half.ph = gscreen.screen.ph>>1;
 	
-	gscreen.buffer.w = Math.round(2*gscreen.screen.pw/gscreen.cellsize.half.w);
-	gscreen.buffer.h = gscreen.buffer.w;
-	gscreen.buffer.half.w = gscreen.buffer.w>>1;
-	gscreen.buffer.half.h = gscreen.buffer.h>>1;
- 
 	//say('расчитанны параметры игровой области\nширина буфера: ['+gscreen.obj.screen.width+'] высота буфера: ['+gscreen.obj.screen.height+']');
 	say('расчитанны параметры игровой области\nширина буфера: ['+gscreen.buffer.w+'] высота буфера: ['+gscreen.buffer.h+']');
 }
