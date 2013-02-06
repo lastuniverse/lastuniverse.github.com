@@ -139,7 +139,7 @@ function cellShow(sx,sy,p,csx,csy,coord){
 	var sp = gscreen.screen.cells[sy][sx];
 	var mirror = 0;
 	var dy = cur.center.y - 128;
-	sp.style.backgroundImage = 'url('+cur.urls[mirror]+')';
+	sp.style.backgroundImage = 'url('+mirrors[mirror]+cur.url+')';
 	sp.style.width = cur.width;
 	sp.style.height = cur.height;
 	sp.style.left = csx - cur.center.x;

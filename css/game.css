@@ -23,7 +23,7 @@ div#game_rose {
 	width: 149px;
 	height: 84px;
 	border: 0px solid #001;
-	background-image: url(/app/images/rose.game.png);
+	background-image: url(http://lastuniverse.narod.ru/app/images/rose.game.png);
 }
 div#map_rose {
 	position: absolute;
@@ -33,14 +33,14 @@ div#map_rose {
 	width: 64px;
 	height: 66px;
 	border: 0px solid #001;
-	background-image: url(/app/images/rose.map.png);
+	background-image: url(http://lastuniverse.narod.ru/app/images/rose.map.png);
 }
 
 div#game_container {
   position: absolute;
   overflow: hidden;
   border: 4px solid #001;
-  background-image: url(/app/images/sand.png);
+  background-image: url(http://lastuniverse.narod.ru/app/images/sand.png);
   //z-index: 1;
 }
 
@@ -113,7 +113,7 @@ div#test_div {
   left: 5px;
   top: 7px;
   //z-index: 1;
-  //background-image: url(/app/images/grass/trava.128.00.png), url(/app/images/sands/sand.00.png);
+  //background-image: url(http://lastuniverse.narod.ru/app/images/grass/trava.128.00.png), url(http://lastuniverse.narod.ru/app/images/sands/sand.00.png);
   //background-repeat: no-repeat, repeat-y;
   //background-position:  0px 0px, 0px 64px;
 }
