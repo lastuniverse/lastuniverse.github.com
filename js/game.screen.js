@@ -48,7 +48,7 @@ function screenCalc(){
 	gscreen.screen.half.ph = gscreen.screen.ph>>1;
 	
 	//say('расчитанны параметры игровой области\nширина буфера: ['+gscreen.obj.screen.width+'] высота буфера: ['+gscreen.obj.screen.height+']');
-	say('расчитанны параметры игровой области\nширина буфера: ['+gscreen.buffer.w+'] высота буфера: ['+gscreen.buffer.h+']');
+	//say('расчитанны параметры игровой области\nширина буфера: ['+gscreen.buffer.w+'] высота буфера: ['+gscreen.buffer.h+']');
 }
 
 function screenCreate() {
@@ -75,10 +75,8 @@ function cellCreate() {
 function calcOrtoCoord(sx,sy){
 	// пересчет системы координат используемой в карте в систему координат используемую в игровом окне 
 	var coord = {};
-	coord.bdx=(((sx>>1)-sy)>>6);
-	coord.bdy=(((sx>>1)+sy)>>6);
-	coord.wx=gscreen.buffer.current.dwx+coord.bdx;
-	coord.wy=gscreen.buffer.current.dwy+coord.bdy;	
+	coord.wx=(((sx>>1)-sy)>>6);
+	coord.wy=(((sx>>1)+sy)>>6);
 	return coord;
 }
 
@@ -94,7 +92,7 @@ function screenShow(wx,wy) {
 		for(var sx=0; sx<gscreen.screen.pw; sx+=128) {
 			var csx = sx-gscreen.screen.half.pw;
 			var coord = calcOrtoCoord(csx+csdx,csy);
-			var pb = getPointInBufer(coord.bdx,coord.bdy);
+			var pb = point_generator(coord.wx+10000,coord.wy+10000);
 			cellShow(sx>>7,sy>>5,pb,sx+csdx,sy,coord);			
 		}
 	}
