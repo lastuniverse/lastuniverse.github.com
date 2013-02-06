@@ -193,8 +193,8 @@ function temperature_map_create(d){
 
 //----- Рандомные генераторы ---------------------------------------------------//
 function getPseudoRandom(wx,wy,offset,max){
-	var x = Math.floor(wx+offset)%256;
-	var y = Math.floor(wy)%256;
+	var x = Math.abs(Math.floor(wx+offset))%256;
+	var y = Math.abs(Math.floor(wy))%256;
 	var rnd=world.randoms[x][y];
 	//var i = (offset+(num>>1))%256;
 	//var j = num%256;
@@ -203,9 +203,9 @@ function getPseudoRandom(wx,wy,offset,max){
 }
 
 function randomTablesGenerate(){
-	for(i=0;i<256;i++){
+	for(i=0;i<257;i++){
 		world.randoms[i]=[];
-		for(j=0;j<256;j++){
+		for(j=0;j<257;j++){
 			world.randoms[i][j]=Math.floor(Math.random()*256);
 		}
 	}

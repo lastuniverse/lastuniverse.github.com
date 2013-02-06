@@ -72,27 +72,26 @@ function cellCreate() {
 }
 
 
-function calcOrtoCoord(sx,sy){
+function calcOrtoCoord(sx,sy,wx,wy){
 	// пересчет системы координат используемой в карте в систему координат используемую в игровом окне 
 	var coord = {};
-	coord.wx=(((sx>>1)-sy)>>6);
-	coord.wy=(((sx>>1)+sy)>>6);
+	coord.swx=(((sx>>1)-sy)>>6);
+	coord.swy=(((sx>>1)+sy)>>6);
+	coord.wx=wx+coord.swx;
+	coord.wy=wy+coord.swy;
 	return coord;
 }
 
 function screenShow(wx,wy) {
 	// отобразить игровой экран так чтобы координаты мира wx и wy оказались в центре игрового экрана
-//var dwy=wy-gscreen.buffer.half.h+sy;
-//var dwx=wx-gscreen.buffer.half.w+sx;
-//var p = point_generator(cwx,cwy);
-
 	for(var sy=0; sy<(gscreen.screen.ph+128); sy+=32) {
 		var csy=sy-gscreen.screen.half.ph;
 		var csdx=(((sy>>5)%2)<<6);
+		//csdx=(sy&1)<<6;
 		for(var sx=0; sx<gscreen.screen.pw; sx+=128) {
 			var csx = sx-gscreen.screen.half.pw;
-			var coord = calcOrtoCoord(csx+csdx,csy);
-			var pb = point_generator(coord.wx+10000,coord.wy+10000);
+			var coord = calcOrtoCoord(csx+csdx,csy,wx,wy);
+			var pb = point_generator(coord.wx,coord.wy);
 			cellShow(sx>>7,sy>>5,pb,sx+csdx,sy,coord);			
 		}
 	}
@@ -104,29 +103,29 @@ function cellShow(sx,sy,p,csx,csy,coord){
 	var mix;
 	var level = gscreen.cellsize.half.h-24;
 	var rl = getPseudoRandom(coord.wx,coord.wy,2,64);
-	var type='snow';
+	var ttype='snow';
 		if( p.t<0 ){
 			rl=rl>>2;
 		}else{
 			rl=rl-(rl>>2);
-			type='sun';
+			ttype='sun';
 		}
 		if( p.h < world.lvls.water ){
-			mix = tiles_mix.water[type];
+			mix = tiles_mix.water[ttype];
 		}else if( p.h < world.lvls.sand-2 ){
-			mix = tiles_mix.bich[type];
+			mix = tiles_mix.bich[ttype];
 			level -= (rl>>1) + 10;
 		}else if( p.h < world.lvls.sand+4 ){
-			mix = tiles_mix.duna[type];
+			mix = tiles_mix.duna[ttype];
 			level -= (rl>>1) + 20;
 		}else if( p.h < world.lvls.sand+16 ){
-			mix = tiles_mix.field[type];
+			mix = tiles_mix.field[ttype];
 			level -= rl;
 		}else if( p.h < world.lvls.stoun ){
-			mix = tiles_mix.steppe[type];
+			mix = tiles_mix.steppe[ttype];
 			level -= rl;
 		}else if( p.h < world.lvls.ice ){
-			mix = tiles_mix.stoun[type];
+			mix = tiles_mix.stoun[ttype];
 			level -= rl;
 		}else{
 			mix = tiles_mix.stoun.snow;
@@ -145,6 +144,9 @@ function cellShow(sx,sy,p,csx,csy,coord){
 	sp.style.height = cur.height;
 	sp.style.left = csx - cur.center.x;
 	sp.style.top = csy - (gscreen.cellsize.h<<1) - gscreen.cellsize.h + level - dy;
+	//sp.innerHTML='';
+	//sp.innerHTML+='s:['+sx+', '+sy+']<br>';
+	//sp.innerHTML+='w:['+coord.wx+', '+coord.wy+']<br>';
 }
 
 // -------------------------------------------

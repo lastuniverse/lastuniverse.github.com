@@ -46,13 +46,13 @@ function show_screen(e){
 		var container = document.getElementById('game_container');
 		var x = e.clientX-(parseInt(container.style.left)+4);
 		var y = e.clientY-(parseInt(container.style.top)+4);
-		var center = calcOrtoCoord(gscreen.obj.screen.width>>1,gscreen.obj.screen.height>>1);
-		var offset = calcOrtoCoord(x,y);
-		var dx = offset.bdx-center.bdx;
-		var dy = offset.bdy-center.bdy;
+		var center = calcOrtoCoord(gscreen.obj.screen.width>>1,gscreen.obj.screen.height>>1,gscreen.ox,gscreen.oy);
+		var offset = calcOrtoCoord(x,y,gscreen.ox,gscreen.oy);
+		var dx = offset.swx-center.swx;
+		var dy = offset.swy-center.swy;
 		gscreen.ox+=dx;
 		gscreen.oy+=dy;
-		say('wx:['+gscreen.ox+'] wy:['+gscreen.oy+']\ndx:['+dx+'] dy:['+dy+']\ncx:['+center.bdx+'] cy:['+center.bdy+']\nox:['+offset.bdx+'] oy:['+offset.bdy+']');
+		say('wx:['+gscreen.ox+'] wy:['+gscreen.oy+']\ndx:['+dx+'] dy:['+dy+']\ncx:['+center.swx+'] cy:['+center.swy+']\nox:['+offset.swx+'] oy:['+offset.swy+']');
 		//showScreen(gscreen.ox,gscreen.oy);
 		screenShow(gscreen.ox,gscreen.oy);
 	}

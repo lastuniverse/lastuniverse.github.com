@@ -137,7 +137,7 @@ function geometryInit(){
 	geometry.elements.shadow.style.left = geometry.elements.game.style.left;
 	geometry.elements.shadow.style.top = geometry.elements.game.style.top;	
 
-   geometry.elements.console = document.getElementById('console_container');
+  geometry.elements.console = document.getElementById('console_container');
 	geometry.elements.console.width = geometry.elements.game.width;
 	geometry.elements.console.height = (geometry.window.height - geometry.elements.game.height) - 30;	
 	geometry.elements.console.style.width = geometry.elements.console.width;
