@@ -193,8 +193,8 @@ function temperature_map_create(d){
 
 //----- Рандомные генераторы ---------------------------------------------------//
 function getPseudoRandom(wx,wy,offset,max){
-	var x = (wx+offset)%256;
-	var y = wy%256;
+	var x = Math.floor(wx+offset)%256;
+	var y = Math.floor(wy)%256;
 	var rnd=world.randoms[x][y];
 	//var i = (offset+(num>>1))%256;
 	//var j = num%256;
