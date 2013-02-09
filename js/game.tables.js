@@ -29,7 +29,7 @@ world = {
 	},
 	lvls: {
 		water:11200,
-		sand:11208,
+		sand:11220,
 		stoun: 28500,
 		ice:35500
 	},
