@@ -83,8 +83,8 @@ function drawImage(x,y,tile){
 	//if( h < 64 ){ h=tile.height; }
 	if( tile.loaded==2 ){
 		var w = tile.img.width;
-		var h = tile.img.height-64;
-		if( h<64 ){ h=tile.img.height; }
+		var h = tile.img.height; //-64;
+		//if( h<64 ){ h=tile.img.height; }
 		//gscreen.obj.ctx.drawImage(tile.img, x, y);
 		//gscreen.obj.ctx.drawImage(tile.img, x, y, w, h);
 		//say('w:['+tile.width+'] h:'+h+' x:['+x+'] y:['+y+']');
