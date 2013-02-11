@@ -7,7 +7,7 @@ world = {
 	},
 	gen: {
 		loops: 6,
-		numbers: 15,
+		numbers: 5,
 		divider: 1,
 		mnts: {
 			loopstart: 4,
@@ -17,7 +17,7 @@ world = {
 		}
 	},
 	vis: {
-		hdivider:2,
+		hdivider:1,
 		layers: {
 			map:{ on: 1, alpha: 255 },
 			addsh:{ on: 0, alpha: 64 },
@@ -28,10 +28,10 @@ world = {
 		}
 	},
 	lvls: {
-		water:19200,
-		sand:19208,
-		stoun: 31500,
-		ice:38000
+		water:11200,
+		sand:11220,
+		stoun: 28500,
+		ice:35500
 	},
 	loops: [],
 	maps: {
