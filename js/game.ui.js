@@ -13,8 +13,7 @@ function swch(block_id) {
 // установить прозрачность слоя над картой
 function opacity(){
 	var i = document.getElementById("opacity").value;
- 	var o = document.getElementById("game_shadow").style.opacity = i/100;
-	img.width = 60 + 20*size;
+ 	//var o = document.getElementById("game_shadow").style.opacity = i/100;
 }
 
 // при нажатии на карту 

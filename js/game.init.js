@@ -136,6 +136,14 @@ function geometryInit(){
 	geometry.elements.shadow.style.height = geometry.elements.game.style.height;
 	geometry.elements.shadow.style.left = geometry.elements.game.style.left;
 	geometry.elements.shadow.style.top = geometry.elements.game.style.top;	
+	
+	geometry.elements.gcanvas = document.getElementById('game_canvas');
+	geometry.elements.gcanvas.width = geometry.elements.game.width;
+	geometry.elements.gcanvas.height = geometry.elements.game.height;	
+	geometry.elements.gcanvas.style.width = geometry.elements.game.style.width;
+	geometry.elements.gcanvas.style.height = geometry.elements.game.style.height;
+	geometry.elements.gcanvas.style.left = geometry.elements.game.style.left;
+	geometry.elements.gcanvas.style.top = geometry.elements.game.style.top;	
 
   geometry.elements.console = document.getElementById('console_container');
 	geometry.elements.console.width = geometry.elements.game.width;

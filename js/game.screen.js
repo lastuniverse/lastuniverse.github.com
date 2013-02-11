@@ -13,10 +13,13 @@ var gscreen = {
 	},
 	id:{ // id элементов в которые происходит отображение
 		screen: 'game_container',
+		canvas: 'game_canvas',
 		shadow: 'game_shadow'
 	},
 	obj: { // сюда запоминаются указатели на элементы с ID указанными выше
 		screen: {},
+		canvas: {},
+		ctx:	{},
 		shadow: {}
 	},
 	screen: { // вычисленные размеры игровой области
@@ -29,7 +32,10 @@ var gscreen = {
 
 function screenInit(){
 	// Предварительная инициализация переменных и формирование необходимых для работы текущей реализации данных
+	loadImage(tiles.base.gray.list[0]);
 	gscreen.obj.screen = document.getElementById(gscreen.id.screen);
+	gscreen.obj.canvas = document.getElementById(gscreen.id.canvas);
+	gscreen.obj.ctx = gscreen.obj.canvas.getContext('2d');
 	gscreen.obj.shadow = document.getElementById(gscreen.id.shadow);
 	screenCalc();
 	screenCreate();
@@ -59,6 +65,38 @@ function screenCreate() {
 			gscreen.screen.cells[y][x] = cellCreate();
 		}
 	}
+}
+
+function loadImage(tile){
+	var mirror=0;
+	if( !tile.loaded ){
+		tile.img = new Image();  // Новый объект
+		tile.img.onload = function(){  // Событие которое будет исполнено в момент когда изображение будет полностью загружено
+    	tile.loaded = 2;
+		}
+   	tile.loaded = 1;
+		tile.img.src = mirrors[mirror]+tile.url;
+	}
+}
+
+function drawImage(x,y,tile){
+	//if( h < 64 ){ h=tile.height; }
+	if( tile.loaded==2 ){
+		var w = tile.img.width;
+		var h = tile.img.height-64;
+		if( h<64 ){ h=tile.img.height; }
+		//gscreen.obj.ctx.drawImage(tile.img, x, y);
+		//gscreen.obj.ctx.drawImage(tile.img, x, y, w, h);
+		//say('w:['+tile.width+'] h:'+h+' x:['+x+'] y:['+y+']');
+			gscreen.obj.ctx.drawImage(tile.img, 0, 0, w, h, x, y, w, h);
+	}else if( tile.loaded==1 ){
+		//var img = tiles.base.gray.list[0].img;
+		//gscreen.obj.ctx.drawImage(img, x, y);
+	}else{
+		loadImage(tile);
+		//var img = tiles.base.gray.list[0].img;
+		//gscreen.obj.ctx.drawImage(img, x, y);
+	}	
 }
 
 function cellCreate() {
@@ -136,14 +174,20 @@ function cellShow(sx,sy,p,csx,csy,coord){
 	var tile = mix[num].tiles;
 	var rand = getPseudoRandom(coord.wx,coord.wy,0,tile.numbers);
 	var cur = tile.list[rand];
-	var sp = gscreen.screen.cells[sy][sx];
 	var mirror = 0;
 	var dy = cur.center.y - 128;
-	sp.style.backgroundImage = 'url('+mirrors[mirror]+cur.url+')';
-	sp.style.width = cur.width;
-	sp.style.height = cur.height;
-	sp.style.left = csx - cur.center.x;
-	sp.style.top = csy - (gscreen.cellsize.h<<1) - gscreen.cellsize.h + level - dy;
+
+	var x = csx - cur.center.x
+	var y = csy - (gscreen.cellsize.h<<1) - gscreen.cellsize.h + level - dy;
+
+	drawImage(x,y,cur);
+
+	//var sp = gscreen.screen.cells[sy][sx];
+	//sp.style.backgroundImage = 'url('+mirrors[mirror]+cur.url+')';
+	//sp.style.width = cur.width;
+	//sp.style.height = cur.height;
+	//sp.style.left = csx - cur.center.x;
+	//sp.style.top = csy - (gscreen.cellsize.h<<1) - gscreen.cellsize.h + level - dy;
 	//sp.innerHTML='';
 	//sp.innerHTML+='s:['+sx+', '+sy+']<br>';
 	//sp.innerHTML+='w:['+coord.wx+', '+coord.wy+']<br>';
