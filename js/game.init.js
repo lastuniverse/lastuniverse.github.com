@@ -1,34 +1,35 @@
 var geometry = {
 	list: {
-		screen_container:{
-			type: 'div',
+/*		screen_container:{
+			tag: 'div',
 			style: { top:0, bottom:0, left:0, right: 0,	position:'absolute', overflow:'hidden'	},
 			list: {
 				screen_container:{
-					type: 'canvas',
-					style: { top:0, bottom:0, left:0, right: 0,	position:'absolute', overflow:'hidden'	}
+					tag: 'canvas',
+					style: { top:0, bottom:0, left:0, right: 0,	position:'absolute'	}
 				}
 			}
 		},
+*/
 		key_map:{
-			type: 'div',
+			tag: 'div',
 			class: 'key_right',
-			style: { top:40, right:0, width:50, height:78,	position:'absolute', 	}
+			style: { top:40, right:0, width:50, height:78,	position:'absolute'	}
 		},
 		key_panel:{
-			type: 'div',
+			tag: 'div',
 			class: 'key_right',
-			style: { top:124, right:0, width:50, height:78,	position:'absolute', 	}
+			style: { top:124, right:0, width:50, height:78,	position:'absolute'	}
 		},
 		key_chat:{
-			type: 'div',
+			tag: 'div',
 			class: 'key_right',
-			style: { top:208, right:0, width:50, height:78,	position:'absolute', 	}
+			style: { top:208, right:0, width:50, height:78,	position:'absolute'	}
 		},
 		key_console:{
-			type: 'div',
+			tag: 'div',
 			class: 'key_right',
-			style: { top:292, right:0, width:50, height:78,	position:'absolute', 	}
+			style: { top:292, right:0, width:50, height:78,	position:'absolute'	}
 		},
 	}
 };
@@ -40,7 +41,7 @@ function geometryInit(){
 	geometry.window.width = getClientWidth();
 	geometry.window.height = getClientHeight();
 
-	parseGeometry(geometry.list);
+	parseList(document.body,geometry.list);
 	
 	/*
   geometry.elements.screen = document.getElementById('screen');
@@ -66,9 +67,26 @@ function geometryInit(){
 	*/
 }
 
-function parseGeometry(list){
-	for (var p in list){
-		
-		alert(p);
+function parseList(p,list){
+	for (var c in list){
+		list[c].id=c;
+		elementCreate(p,list[c]);
 	}	
 }
+
+function elementCreate(p,c) {
+    var obj = document.createElement(c.tag);
+    //obj.id = c.id;
+    if( c.class ){ obj.className=c.class; }
+    if( c.style ){
+			for (var n in c.style){
+				obj.style[n] = c.style[n];
+			}	
+    }
+    p.appendChild(obj);
+    if( c.list ){
+    	parseList(obj,c.list);
+    }		
+}
+
+

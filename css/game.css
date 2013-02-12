@@ -20,14 +20,7 @@ BODY {
   overflow: hidden;
   border: 2px solid #f00;
   background-color: #000;
-  left: 0px;
-  right: 0px;
-  top: 0px;
-  bottom: 0px;
-  /* background-image: url(/lastuniverse.github.com/images/keys/key.right.0.png); */
-  opacity: 0.5;
-  z-index: 1;
-}
+ 
 
 .key_right {
 	width: 50px;
@@ -36,7 +29,6 @@ BODY {
   overflow: hidden;
   border: 2px solid #001;
   background-image: url(/lastuniverse.github.com/images/keys/key.right.0.png);
-  z-index: 2;
 }
 .key_right:hover {
   background-image: url(/lastuniverse.github.com/images/keys/key.right.1.png);
