@@ -13,10 +13,13 @@ var gscreen = {
 	},
 	id:{ // id элементов в которые происходит отображение
 		screen: 'game_container',
+		canvas: 'game_canvas',
 		shadow: 'game_shadow'
 	},
 	obj: { // сюда запоминаются указатели на элементы с ID указанными выше
 		screen: {},
+		canvas: {},
+		ctx:	{},
 		shadow: {}
 	},
 	screen: { // вычисленные размеры игровой области
@@ -29,7 +32,10 @@ var gscreen = {
 
 function screenInit(){
 	// Предварительная инициализация переменных и формирование необходимых для работы текущей реализации данных
+	loadImage(tiles.base.gray.list[0]);
 	gscreen.obj.screen = document.getElementById(gscreen.id.screen);
+	gscreen.obj.canvas = document.getElementById(gscreen.id.canvas);
+	gscreen.obj.ctx = gscreen.obj.canvas.getContext('2d');
 	gscreen.obj.shadow = document.getElementById(gscreen.id.shadow);
 	screenCalc();
 	screenCreate();
@@ -61,6 +67,38 @@ function screenCreate() {
 	}
 }
 
+function loadImage(tile){
+	var mirror=0;
+	if( !tile.loaded ){
+		tile.img = new Image();  // Новый объект
+		tile.img.onload = function(){  // Событие которое будет исполнено в момент когда изображение будет полностью загружено
+    	tile.loaded = 2;
+		}
+   	tile.loaded = 1;
+		tile.img.src = mirrors[mirror]+tile.url;
+	}
+}
+
+function drawImage(x,y,tile){
+	//if( h < 64 ){ h=tile.height; }
+	if( tile.loaded==2 ){
+		var w = tile.img.width;
+		var h = tile.img.height; //-64;
+		//if( h<64 ){ h=tile.img.height; }
+		//gscreen.obj.ctx.drawImage(tile.img, x, y);
+		//gscreen.obj.ctx.drawImage(tile.img, x, y, w, h);
+		//say('w:['+tile.width+'] h:'+h+' x:['+x+'] y:['+y+']');
+			gscreen.obj.ctx.drawImage(tile.img, 0, 0, w, h, x, y, w, h);
+	}else if( tile.loaded==1 ){
+		//var img = tiles.base.gray.list[0].img;
+		//gscreen.obj.ctx.drawImage(img, x, y);
+	}else{
+		loadImage(tile);
+		//var img = tiles.base.gray.list[0].img;
+		//gscreen.obj.ctx.drawImage(img, x, y);
+	}	
+}
+
 function cellCreate() {
 	// создается div элемент и добавляется в элемент с ID указанным в gscreen.id.screen
     var newdiv = document.createElement('div');
@@ -83,7 +121,22 @@ function calcOrtoCoord(sx,sy,wx,wy){
 }
 
 function screenShow(wx,wy) {
+	wx-=200;
+	wy-=200;
 	// отобразить игровой экран так чтобы координаты мира wx и wy оказались в центре игрового экрана
+	for(var sy=0; sy<(gscreen.screen.ph+128); sy+=32) {
+		var csy=sy-gscreen.screen.half.ph;
+		var csdx=(((sy>>5)%2)<<6);
+		//csdx=(sy&1)<<6;
+		for(var sx=0; sx<gscreen.screen.pw; sx+=128) {
+			var csx = sx-gscreen.screen.half.pw;
+			var coord = calcOrtoCoord(csx+csdx,csy,wx,wy);
+			var pb = point_generator(coord.wx,coord.wy);
+			cellShow(sx>>7,sy>>5,pb,sx+csdx,sy,coord);			
+		}
+	}
+	wx+=200;
+	wy+=200;
 	for(var sy=0; sy<(gscreen.screen.ph+128); sy+=32) {
 		var csy=sy-gscreen.screen.half.ph;
 		var csdx=(((sy>>5)%2)<<6);
@@ -136,14 +189,20 @@ function cellShow(sx,sy,p,csx,csy,coord){
 	var tile = mix[num].tiles;
 	var rand = getPseudoRandom(coord.wx,coord.wy,0,tile.numbers);
 	var cur = tile.list[rand];
-	var sp = gscreen.screen.cells[sy][sx];
 	var mirror = 0;
 	var dy = cur.center.y - 128;
-	sp.style.backgroundImage = 'url('+mirrors[mirror]+cur.url+')';
-	sp.style.width = cur.width;
-	sp.style.height = cur.height;
-	sp.style.left = csx - cur.center.x;
-	sp.style.top = csy - (gscreen.cellsize.h<<1) - gscreen.cellsize.h + level - dy;
+
+	var x = csx - cur.center.x
+	var y = csy - (gscreen.cellsize.h<<1) - gscreen.cellsize.h + level - dy;
+
+	drawImage(x,y,cur);
+
+	//var sp = gscreen.screen.cells[sy][sx];
+	//sp.style.backgroundImage = 'url('+mirrors[mirror]+cur.url+')';
+	//sp.style.width = cur.width;
+	//sp.style.height = cur.height;
+	//sp.style.left = csx - cur.center.x;
+	//sp.style.top = csy - (gscreen.cellsize.h<<1) - gscreen.cellsize.h + level - dy;
 	//sp.innerHTML='';
 	//sp.innerHTML+='s:['+sx+', '+sy+']<br>';
 	//sp.innerHTML+='w:['+coord.wx+', '+coord.wy+']<br>';

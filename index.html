@@ -15,15 +15,19 @@
   		<script src="js/game.tables.js" type="text/javascript"></script>
  
   <script src="js/game.init.js" type="text/javascript"></script>
-  <script src="js/game.genetanor.math.js" type="text/javascript"></script>
-  <script src="js/game.genetanors.js" type="text/javascript"></script>
+  <script src="js/game.generator.math.js" type="text/javascript"></script>
+  <script src="js/game.generators.js" type="text/javascript"></script>
   
 
   <script src="js/game.screen.js" type="text/javascript"></script>
   <script src="js/game.map.js" type="text/javascript"></script>
   <script src="js/game.ui.js" type="text/javascript"></script>
 
-  <script src="http://alexpotapov.net/generator.js" type="text/javascript"></script>
+	<script src="js/threeR53.min.js" type="text/javascript"></script>
+	<script src="js/three.test.js" type="text/javascript"></script>
+
+  <!--script src="http://alexpotapov.net/generator.js" type="text/javascript"></script-->
+
   
   
   <script type="text/javascript">
@@ -35,6 +39,7 @@
 		height_randoms_generate();
 		WorldMapsInit();
 		gameDraw();
+		showMan();
 		//alert('Width: ['+geometry.window.width+']  Height: ['+geometry.window.height+']');
 	}
 	var count_fps = 0;
@@ -90,7 +95,7 @@
 border="0" height="31" width="88" alt="Рейтинг@Mail.ru"></a></noscript>
 <!-- //Rating@Mail.ru counter -->
 	</div>
-	<div id="game_container"></div>
+	<div id="game_container"><canvas id="game_canvas" class="game_canvas"></canvas></div>
 	<div id="game_rose" class="game_rose"></div>
 	<div id="game_shadow" class="game_shadow" onmouseup="show_screen(event)"></div>
 	<div id="map_container" class="map_container"><canvas id="map_canvas" class="map_canvas" onmouseup="zoom(event)"></canvas></div>

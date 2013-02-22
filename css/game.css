@@ -43,7 +43,14 @@ div#game_container {
   background-image: url(http://lastuniverse.narod.ru/app/images/sand.png);
   //z-index: 1;
 }
-
+div#game_canvas {
+  position: absolute;
+  overflow: hidden;
+  border: 4px solid #001;
+  background-color: #000;
+  //opacity: 0.0;
+  //z-index: 1;
+}
 div#game_shadow {
   position: absolute;
   overflow: hidden;
