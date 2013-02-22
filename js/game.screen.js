@@ -121,7 +121,22 @@ function calcOrtoCoord(sx,sy,wx,wy){
 }
 
 function screenShow(wx,wy) {
+	wx-=200;
+	wy-=200;
 	// отобразить игровой экран так чтобы координаты мира wx и wy оказались в центре игрового экрана
+	for(var sy=0; sy<(gscreen.screen.ph+128); sy+=32) {
+		var csy=sy-gscreen.screen.half.ph;
+		var csdx=(((sy>>5)%2)<<6);
+		//csdx=(sy&1)<<6;
+		for(var sx=0; sx<gscreen.screen.pw; sx+=128) {
+			var csx = sx-gscreen.screen.half.pw;
+			var coord = calcOrtoCoord(csx+csdx,csy,wx,wy);
+			var pb = point_generator(coord.wx,coord.wy);
+			cellShow(sx>>7,sy>>5,pb,sx+csdx,sy,coord);			
+		}
+	}
+	wx+=200;
+	wy+=200;
 	for(var sy=0; sy<(gscreen.screen.ph+128); sy+=32) {
 		var csy=sy-gscreen.screen.half.ph;
 		var csdx=(((sy>>5)%2)<<6);

@@ -91,8 +91,8 @@ function WorldMapsInit(){
 	}
 }
 
+var geometry = {};
 function geometryInit(){
-	var geometry = {};
 	geometry.elements = {game:{},map:{},canvas:{},edit:{},'text':{},console:{},inf:{},infcanvas:{}};
 
 	geometry.window = {};
