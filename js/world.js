@@ -12,7 +12,6 @@ WORLD = function(url){
 		this.generators		=	new WORLD.generators(this);
 };
 
-//WORLD.prototype.constructor = _WORLD;
 
 WORLD.prototype.method = function(){
 		say("WORLD.prototype.method() url: ["+this.subclass.url+"]");
