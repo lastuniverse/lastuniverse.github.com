@@ -14,8 +14,6 @@ function point_generator(x,y){
 	return point;	
 }
 
-
-
 function point_height(x,y,point){
 	var height = {h:0, m:0};
 	for(var i=0; i<world.gen.loops; i++){

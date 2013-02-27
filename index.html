@@ -9,6 +9,15 @@
   <!--script src="http://vk.com/js/api/xd_connection.js?2" type="text/javascript"></script-->
   <!--script src="/app/js/mymath.js" type="text/javascript"></script-->
 
+
+	<script src="js/ajax.js" type="text/javascript"></script>
+	<script src="js/world.js" type="text/javascript"></script>
+	<script src="js/world.subclass.js" type="text/javascript"></script>
+	<script src="js/world.loader.js" type="text/javascript"></script>
+	<script src="js/world.generators.js" type="text/javascript"></script>
+
+
+
 		<script src="js/functions.js" type="text/javascript"></script>
   		<script src="tables/tiles.js" type="text/javascript"></script>
   		<!--script src="/app/tables/world.00.js" type="text/javascript"></script-->
@@ -32,59 +41,80 @@
   
   <script type="text/javascript">
 	function onLoad() {
-		randomTablesGenerate();
-		geometryInit();
-		screenInit();
-		worldRestore();
-		height_randoms_generate();
-		WorldMapsInit();
-		gameDraw();
-		showMan();
-		//alert('Width: ['+geometry.window.width+']  Height: ['+geometry.window.height+']');
+	    var world1 = new WORLD();
+	    var world2 = new WORLD(2);
+	    var world3 = new WORLD(3);
+
+	    world1.loader.resetWORLD({});
+	    world2.loader.openWORLD('http://80.237.22.134/lastuniverse.github.com/js/map.params.js');
+	    world3.loader.openWORLD('js/map.params.js');
+
+	    world1.subclass.method();
+	    world2.subclass.method();
+	    world3.subclass.method();
+	    
+	    world1.generators.all();
+
+
+
+	    //var world = new WORLD();
+	    //world.openWorld('http://80.237.22.134/lastuniverse.github.com/js/map.params.js');
+
+	    randomTablesGenerate();
+	    geometryInit();
+	    screenInit();
+	    worldRestore();
+	    height_randoms_generate();
+	    WorldMapsInit();
+	    gameDraw();
+	    showMan();
+	    //alert('Width: ['+geometry.window.width+']  Height: ['+geometry.window.height+']');
 	}
 	var count_fps = 0;
 	var loops_fps = 100;
 	var time_fps_end = 0;
 	var time_fps_start = 0;
-	
-	function testFPSloops(){
-		count_fps++;
-		//showScreen(gscreen.ox,gscreen.oy);
-		screenShow(gscreen.ox+count_fps,gscreen.oy+count_fps);
-		if( count_fps<loops_fps ){
-			setTimeout(testFPSloops, 0);
-		}else{
-			var me = new Date();
-			time_fps_end = me.getTime();
-			say("Завершена проверка скорости отрисовки игрового поля через setTimeout.\nотрисованно кадров: ["+loops_fps+"]\nзатрачено времени: ["+(time_fps_end-time_fps_start)+"]");
-			count_fps=0;
-		}
+
+	function testFPSloops() {
+	    count_fps++;
+	    //showScreen(gscreen.ox,gscreen.oy);
+	    screenShow(gscreen.ox + count_fps, gscreen.oy + count_fps);
+	    if (count_fps < loops_fps) {
+	        setTimeout(testFPSloops, 0);
+	    } else {
+	        var me = new Date();
+	        time_fps_end = me.getTime();
+	        say("Завершена проверка скорости отрисовки игрового поля через setTimeout.\nотрисованно кадров: [" + loops_fps + "]\nзатрачено времени: [" + (time_fps_end - time_fps_start) + "]");
+	        count_fps = 0;
+	    }
 	}
 
-	function testFPS(){
-		
-		var ms = new Date();
-		time_fps_start = ms.getTime();
-		setTimeout(testFPSloops, 1);
+	function testFPS() {
+
+	    var ms = new Date();
+	    time_fps_start = ms.getTime();
+	    setTimeout(testFPSloops, 50);
 	}
-	function testFPSwhile(){
-		var ms = new Date();
-		time_fps_start = ms.getTime();
-		for(var i=0; i<loops_fps; i++ ){
-			//showScreen(gscreen.ox,gscreen.oy);
-			screenShow(gscreen.ox,gscreen.oy);			
-		}
-		var me = new Date();
-		time_fps_end = me.getTime();
-		say("Завершена проверка скорости отрисовки игрового поля  в цикле.\nотрисованно кадров: ["+loops_fps+"]\nзатрачено времени: ["+(time_fps_end-time_fps_start)+"]");
+
+	function testFPSwhile() {
+	    var ms = new Date();
+	    time_fps_start = ms.getTime();
+	    for (var i = 0; i < loops_fps; i++) {
+	        //showScreen(gscreen.ox,gscreen.oy);
+	        screenShow(gscreen.ox, gscreen.oy);
+	    }
+	    var me = new Date();
+	    time_fps_end = me.getTime();
+	    say("Завершена проверка скорости отрисовки игрового поля  в цикле.\nотрисованно кадров: [" + loops_fps + "]\nзатрачено времени: [" + (time_fps_end - time_fps_start) + "]");
 	}
   </script>
   
   <link rel="stylesheet" type="text/css" href="css/game.css">
 </head>
 <body onload="onLoad()">
-	<div id="test_div" class="test_div">
-<!-- Rating@Mail.ru counter -->
+
+
+	<!--div id="test_div" class="test_div">
 <script type="text/javascript">//<![CDATA[
 (function(w,n,d,r,s){d.write('<a href="http://top.mail.ru/jump?from=2301119" target="_top">'+
 '<img src="http://dc.c1.b3.a2.top.mail.ru/counter?id=2301119;t=50;js=13'+
@@ -93,8 +123,8 @@
 </script><noscript><a target="_top" href="http://top.mail.ru/jump?from=2301119">
 <img src="http://dc.c1.b3.a2.top.mail.ru/counter?id=2301119;t=50;js=na"
 border="0" height="31" width="88" alt="Рейтинг@Mail.ru"></a></noscript>
-<!-- //Rating@Mail.ru counter -->
-	</div>
+	</div-->
+	
 	<div id="game_container"><canvas id="game_canvas" class="game_canvas"></canvas></div>
 	<div id="game_rose" class="game_rose"></div>
 	<div id="game_shadow" class="game_shadow" onmouseup="show_screen(event)"></div>
