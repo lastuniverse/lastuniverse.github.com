@@ -9,9 +9,12 @@ WORLD.generators = function(scope) {
 // выполнить все генераторы
 WORLD.generators.prototype.all = function() {
     this.heightMap();
+    this.climaticMap();
+    this.riverMap();
+    this.settlementMap();
     this.randomTables();
-    say("[WORLD.generators.all] завершилась");
 };
+
 
 // генерирует данные о карте высот
 WORLD.generators.prototype.heightMap = function() {
@@ -39,9 +42,10 @@ WORLD.generators.prototype.heightMap = function() {
                     heightmap.x = ox + Math.floor(Math.random() * sector_size);
                     heightmap.y = oy + Math.floor(Math.random() * sector_size);
                     heightmap.r = Math.floor(Math.random() * (size >> 1)) + size >> 1;
-                    heightmap.h = Math.floor(Math.random() * height);
-                    var v = Math.floor(Math.random() * 20) - 1;
-                    if (v < 0) heightmap.h = -heightmap.h;
+                    //heightmap.h = Math.floor(Math.random() * height);
+                    //heightmap.h = Math.floor(Math.random() * height);
+                    //var v = Math.floor(Math.random() * 20) - 1;
+                    //if (v < 0) heightmap.h = -heightmap.h;
                     map.data.height[i][y][x][n] = heightmap;
 
                     if (n < map.mounts.numbers) {
@@ -58,7 +62,29 @@ WORLD.generators.prototype.heightMap = function() {
             }
         }
     }
-    say("[WORLD.generators.heightMap] завершилась");
+};
+
+// Производит приближенный к реальности предварительный расчет
+// климатических зон и факторов влияющих на выбор типа грунтов и распределение растительности
+// и сохраняет предрассчитанные данные для дальнейшего использования калькулятором WORLD.calculators.prototype.pointСlimatic 
+WORLD.generators.prototype.climaticMap = function() {
+
+};
+
+
+// Производит рандомное разбрасывание источников воды (родников) и трассировку сгенерированной местности 
+// для ведения потока этих вод до слияния с другой рекой/озером/мировым океаном
+// и сохраняет предрассчитанные данные для дальнейшего использования калькулятором WORLD.calculators.prototype.pointRiver 
+WORLD.generators.prototype.riverMap = function() {
+
+};
+
+
+// Производит полурандомное:) разбрасывание точек (будущих центров городов и поселений). Затем производит трассировку местности  
+// для построения рандомновыбранного типа поселения
+// и сохраняет предрассчитанные данные для дальнейшего использования калькулятором WORLD.calculators.prototype.pointSettlement 
+WORLD.generators.prototype.settlementMap = function() {
+
 };
 
 // генерирует рандомные величины используемые в различных функциях - калькуляторах
@@ -72,5 +98,4 @@ WORLD.generators.prototype.randomTables = function() {
             randoms[i][j] = Math.floor(Math.random() * 256);
         }
     }
-    say("[WORLD.generators.randomTables] завершилась");
-}
+};

@@ -1,95 +1,80 @@
 function worldInit(){
-	world.lvls.water = getIntValueById('waterlevel',0,65535);	
-	world.lvls.sand = getIntValueById('sandlevel',0,65535);	
-	world.lvls.stoun = getIntValueById('stounlevel',0,65535);	
-	world.lvls.ice = getIntValueById('icelevel',0,65535);
-	world.maps.opts.day = getIntValueById('day',0,365);
-	world.maps.opts.thdivider = getIntValueById('thdivider',0,20);
-	world.maps.opts.tddivider = getIntValueById('tddivider',0,20);
+	world.map.levels.water = getIntValueById('waterlevel',0,65535);	
+	world.map.levels.sand = getIntValueById('sandlevel',0,65535);	
+	world.map.levels.stoun = getIntValueById('stounlevel',0,65535);	
+	world.map.levels.ice = getIntValueById('icelevel',0,65535);
+	world.map.date.day = getIntValueById('day',0,365);
+	world.map.temper.thdivider = getIntValueById('thdivider',0,20);
+	world.map.temper.tddivider = getIntValueById('tddivider',0,20);
 	
-	world.vis.layers.map.on = getCheckedById('map_check');
-	world.vis.layers.map.alpha = getIntValueById('a_map_check',0,255);	
+	world.map.layers.map.on = getCheckedById('map_check');
+	world.map.layers.map.alpha = getIntValueById('a_map_check',0,255);	
 
-	world.vis.layers.temp.on = getCheckedById('temp_check');
-	world.vis.layers.temp.alpha = getIntValueById('a_temp_check',0,255);
+	world.map.layers.temp.on = getCheckedById('temp_check');
+	world.map.layers.temp.alpha = getIntValueById('a_temp_check',0,255);
 	
-	world.vis.layers.press.on = getCheckedById('press_check');
-	world.vis.layers.press.alpha = getIntValueById('a_press_check',0,255);	
+	world.map.layers.press.on = getCheckedById('press_check');
+	world.map.layers.press.alpha = getIntValueById('a_press_check',0,255);	
 
-	world.vis.layers.ice.on = getCheckedById('ice_check');
-	world.vis.layers.ice.alpha = getIntValueById('a_ice_check',0,255);	
+	world.map.layers.ice.on = getCheckedById('ice_check');
+	world.map.layers.ice.alpha = getIntValueById('a_ice_check',0,255);	
 	
-	world.vis.layers.seasons.on = getCheckedById('seasons_check');
-	world.vis.layers.seasons.alpha = getIntValueById('a_seasons_check',0,255);
+	world.map.layers.seasons.on = getCheckedById('seasons_check');
+	world.map.layers.seasons.alpha = getIntValueById('a_seasons_check',0,255);
 
-	world.vis.layers.addsh.on = getCheckedById('addsh_check');
-	world.vis.layers.addsh.alpha = getIntValueById('a_addsh_check',0,255);
+	world.map.layers.addsh.on = getCheckedById('addsh_check');
+	world.map.layers.addsh.alpha = getIntValueById('a_addsh_check',0,255);
 
-	world.gen.loops = getIntValueById('loops',1,8);
-	world.gen.numbers = getIntValueById('numbers',1,20);
-	world.gen.divider = getIntValueById('divider',0,10);
+	world.map.geo.loops = getIntValueById('loops',1,8);
+	world.map.geo.numbers = getIntValueById('numbers',1,20);
+	world.map.geo.edivider = getIntValueById('divider',0,10);
 
-	world.vis.hdivider = getIntValueById('hdivider',0,256);
-	world.geo.degree = getIntValueById('degree',world.gen.loops+1,25);
-	world.geo.base = 2<<(world.geo.degree-1);
-	world.geo.height = world.geo.base;
-	world.geo.width = world.geo.height<<1;
-	setValueById('base',world.geo.base);
-	setValueById('height',world.geo.height);
-	setValueById('width',world.geo.width);
+	world.map.geo.hdivider = getIntValueById('hdivider',0,256);
+	world.map.geo.degree = getIntValueById('degree',world.map.geo.loops+1,25);
+	world.loader.recalcWORLD();
+	//world.map.geo.base = 2<<(world.map.geo.degree-1);
+	//world.map.geo.height = world.map.geo.base;
+	//world.map.geo.width = world.map.geo.height<<1;
+	setValueById('base',world.map.geo.base);
+	setValueById('height',world.map.geo.height);
+	setValueById('width',world.map.geo.width);
 }
 
 function worldRestore(){
-	setValueById('waterlevel',world.lvls.water);
-	setValueById('sandlevel',world.lvls.sand);
-	setValueById('stounlevel',world.lvls.stoun);
-	setValueById('icelevel',world.lvls.ice);
-	setValueById('day',world.maps.opts.day);
-	setValueById('thdivider',world.maps.opts.thdivider);
-	setValueById('tddivider',world.maps.opts.tddivider);
+	setValueById('waterlevel',world.map.levels.water);
+	setValueById('sandlevel',world.map.levels.sand);
+	setValueById('stounlevel',world.map.levels.stoun);
+	setValueById('icelevel',world.map.levels.ice);
+	setValueById('day',world.map.date.day);
+	setValueById('thdivider',world.map.temper.thdivider);
+	setValueById('tddivider',world.map.temper.tddivider);
 
-	setCheckedById('map_check',world.vis.layers.map.on);
-	setValueById('a_map_check',world.vis.layers.map.alpha);
-	setCheckedById('temp_check',world.vis.layers.temp.on);
-	setValueById('a_temp_check',world.vis.layers.temp.alpha);
-	setCheckedById('press_check',world.vis.layers.press.on);
-	setValueById('a_press_check',world.vis.layers.press.alpha);
+	setCheckedById('map_check',world.map.layers.map.on);
+	setValueById('a_map_check',world.map.layers.map.alpha);
+	setCheckedById('temp_check',world.map.layers.temp.on);
+	setValueById('a_temp_check',world.map.layers.temp.alpha);
+	setCheckedById('press_check',world.map.layers.press.on);
+	setValueById('a_press_check',world.map.layers.press.alpha);
 
-	setCheckedById('ice_check',world.vis.layers.ice.on);
-	setValueById('a_ice_check',world.vis.layers.ice.alpha);
-	setCheckedById('seasons_check',world.vis.layers.seasons.on);
-	setValueById('a_seasons_check',world.vis.layers.seasons.alpha);
-	setCheckedById('addsh_check',world.vis.layers.addsh.on);
-	setValueById('a_addsh_check',world.vis.layers.addsh.alpha);
+	setCheckedById('ice_check',world.map.layers.ice.on);
+	setValueById('a_ice_check',world.map.layers.ice.alpha);
+	setCheckedById('seasons_check',world.map.layers.seasons.on);
+	setValueById('a_seasons_check',world.map.layers.seasons.alpha);
+	setCheckedById('addsh_check',world.map.layers.addsh.on);
+	setValueById('a_addsh_check',world.map.layers.addsh.alpha);
 
-	setValueById('loops',world.gen.loops);
-	setValueById('numbers',world.gen.numbers);
-	setValueById('divider',world.gen.divider);
+	setValueById('loops',world.map.geo.loops);
+	setValueById('numbers',world.map.geo.numbers);
+	setValueById('divider',world.map.geo.edivider);
 
 
-	setValueById('degree',world.geo.degree);
-	setValueById('base',world.geo.base);
-	setValueById('width',world.geo.width);
-	setValueById('height',world.geo.height);
-	setValueById('hdivider',world.vis.hdivider);
+	setValueById('degree',world.map.geo.degree);
+	setValueById('base',world.map.geo.base);
+	setValueById('width',world.map.geo.width);
+	setValueById('height',world.map.geo.height);
+	setValueById('hdivider',world.map.geo.hdivider);
 }
 
-function WorldMapsInit(){
-	var sw = 2<<world.maps.opts.divider;
-	var sh = 1<<world.maps.opts.divider;
-	for( var y=0; y<sw; y++ ){
-		world.maps.height[y] = [];
-		world.maps.temperature[y] = [];
-		world.maps.wind.force[y] = [];
-		world.maps.wind.direction[y] = [];
-		for( var x=0; x<sw; x++ ){
-			world.maps.height[y][x] = 0;
-			world.maps.temperature[y][x] = 0;
-			world.maps.wind.force[y][x] = 0;
-			world.maps.wind.direction[y][x] = 0;
-		}
-	}
-}
 
 var geometry = {};
 function geometryInit(){
@@ -123,7 +108,7 @@ function geometryInit(){
 	
 	geometry.elements.game = document.getElementById('game_container');
 	geometry.elements.game.width = (geometry.window.width - geometry.elements.edit.width) - 37;
-	geometry.elements.game.height = geometry.window.height - 100;	
+	geometry.elements.game.height = geometry.window.height - 200;	
 	geometry.elements.game.style.width = geometry.elements.game.width;
 	geometry.elements.game.style.height = geometry.elements.game.height;
 	geometry.elements.game.style.left = 7;

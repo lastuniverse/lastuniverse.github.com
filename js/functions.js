@@ -49,3 +49,6 @@ function say(str) {
     var console = document.getElementById('edit_textarea');
     console.innerHTML = str + "\n--------------------------------\n" + console.innerHTML;
 }
+function echo(str) {
+    map_str += "\n" + str;
+}

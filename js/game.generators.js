@@ -1,74 +1,4 @@
-function point_generator(x,y){
-	var point = {};
-	point.x=x;
-	point.x=y;
-	point.day = world.maps.opts.day;
-	point_height(x,y,point);
-	if( world.vis.layers.temp.on==1 || world.vis.layers.ice.on==1 || world.vis.layers.seasons.on==1 || world.vis.layers.press.on==1 ){ 
-		point_temperature(x,y,point.day,point);
-	}
-	if( world.vis.layers.press.on==1 ){ 
-		point_pressure(x,y,point.day,point);
-	}
-	
-	return point;	
-}
-
-function point_height(x,y,point){
-	var height = {h:0, m:0};
-	for(var i=0; i<world.gen.loops; i++){
-		var sd = world.geo.degree-i;
-		var sw = world.geo.width>>sd;
-		var sh = world.geo.height>>sd;
-		var csx = x>>sd;
-		var csy = y>>sd;
-		var obj_i = world.loops[i];
-		for(var sy=-1; sy<2; sy++){
-			var cy = csy+sy;
-			if( cy >= 0 && cy < sh){
-				var obj_y = obj_i[cy];
-				for(var sx=-1; sx<2; sx++){
-					var cx = csx+sx;
-					if( i>0 ){
-						if( cx<0 ){ cx=sw-1; }
-						if( cx>sw-1 ){ cx=0; }
-					}
-					if( cx >= 0 && cx < sw){
-						var obj_x = obj_y[cx];
-						for(var n=0; n<world.gen.numbers; n++){
-							var obj = obj_x[n];
-							var dist = distance(x,y,obj.h);
-							if( dist<obj.h.r ){ height.h+=relief(dist,obj.h); }
-							//if( obj.hasOwnProperty('m') ){ //работает очень медленно заменено на 2 следующих if
-							if( n < world.gen.mnts.numbers ){
-							if( i>=world.gen.mnts.loopstart && i<=world.gen.mnts.loopend ){
-								dist = distance(x,y,obj.m);
-								if( dist<obj.m.r ){ height.m+=(relief(dist,obj.m)<<world.gen.mnts.multipler); }
-							}}
-						}
-					}
-				}
-			}
-		}
-	}
-	point_height_normalize(height,point);
-	point.lh = point.h - world.lvls.water;
-}
-
-function point_height_normalize(height,point){
-	height.h = height.h>>world.vis.hdivider;
-	if( height.h>=world.lvls.water ){
-		height.m = height.m<<1;
-		height.h += height.m;
-	}else{
-		height.m = 0;
-	}
-	var mh = 65535;
-	if( height.h<0 ){ height.h=0; }
-	if( height.h>mh ){ height.h=mh; }
-	point.h = height.h;
-	point.m = height.m;
-}
+// Файл устарел его функционал перенесен в класс WORLD
 /*function point_pressure(x,y,d,p){
 	// x, y - текущие координаты на карте
 	// d - текущий день в игровом году (0-365)
@@ -146,21 +76,6 @@ function point_temperature(x,y,d,p){
 	}*/
 	p.t = Math.floor(st);
 }
-//----- Генераторы учитывающие текущий рельеф ----------------------------------//
-function height_map_create(){
-	var sw = 2<<world.maps.opts.divider;
-	var sh = 1<<world.maps.opts.divider;
-	var sd = world.geo.degree-world.maps.opts.divider;
-	var ss = world.geo.height>>world.maps.opts.divider;
-	for( var y=0; y<sh; y++ ){
-		var yy = y<<sd;
-		for( var x=0; x<sw; x++ ){
-			var xx = x<<sd;
-			world.maps.height[y][x] = point_height(xx,yy);
-		}
-	}
-	say("Сгенерированна карта высот\nколичество секторов по горизонтали: ["+sw+"]\nколичество секторов по вертикали: ["+sh+"]\nразмер сектора (метры): ["+ss+"]");
-}
 
 function temperature_map_create(d){
 	var sw = 2<<world.maps.opts.divider;
@@ -187,77 +102,6 @@ function temperature_map_create(d){
 		}
 	}
 	say("Сгенерированна карта температур\nмаксимальная допустимая температура: ["+world.maps.opts.tempmax+"]\nминимальная допустимая температура: ["+world.maps.opts.tempmin+"]\nотклонение оси вращения мира (градусы): ["+world.maps.opts.deviation+"]");
-}
-
-//----- Рандомные генераторы ---------------------------------------------------//
-function getPseudoRandom(wx,wy,offset,max){
-	var x = Math.abs(Math.floor(wx+offset))%256;
-	var y = Math.abs(Math.floor(wy))%256;
-	var rnd=world.randoms[x][y];
-	//var i = (offset+(num>>1))%256;
-	//var j = num%256;
-	//var rnd = world.randoms[i][j];
-	return ((rnd*max)>>8);
-}
-
-function randomTablesGenerate(){
-	for(i=0;i<257;i++){
-		world.randoms[i]=[];
-		for(j=0;j<257;j++){
-			world.randoms[i][j]=Math.floor(Math.random()*256);
-		}
-	}
-}
-function height_randoms_generate(){
-	worldInit();
-	WorldMapsInit();
-	var count = 0;
-	for(var i=0; i<world.gen.loops; i++){
-		world.loops[i] = [];
-		var sector_size = world.geo.base>>i;
-		var sector_divider = world.geo.degree-i;
-		var sectors_w = world.geo.width>>sector_divider;
-		var sectors_h = world.geo.height>>sector_divider;
-		var size = (sector_size>>world.gen.divider);
-		var height = world.gen.loops-i;
-		for(var y=0; y<sectors_h; y++){
-			world.loops[i][y] = [];
-			var oy = y<<sector_divider;
-		for(var x=0; x<sectors_w; x++){
-			world.loops[i][y][x] = [];
-			var ox = x<<sector_divider;
-			for(var n=0; n<world.gen.numbers; n++){
-				var obj = { h:{} };
-				obj.h.x = ox + Math.floor( Math.random() * sector_size );
-				obj.h.y = oy + Math.floor( Math.random() * sector_size );
-				obj.h.r = Math.floor( Math.random() * (size>>1) ) + size>>1;
-				obj.h.h = Math.floor( Math.random() * height );
-				//obj.h.t = Math.floor( Math.random() * 2 );
-				var v = Math.floor( Math.random() * 20 ) - 1;
-				if( v < 0 ){ obj.h.h = -obj.h.h; }
-				//obj.h.d = Math.floor( Math.random() * 2 );
-				if( n < world.gen.mnts.numbers ){
-					if( i>=world.gen.mnts.loopstart && i<=world.gen.mnts.loopend ){
-						obj.m = {};
-						obj.m.x = ox + Math.floor( Math.random() * sector_size );
-						obj.m.y = oy + Math.floor( Math.random() * sector_size );
-						obj.m.r = Math.floor( Math.random() * (size>>1) ) + size>>1;
-					}
-				}
-				world.loops[i][y][x][n] = obj;
-				count++;
-			}
-		}}
-	}
-	say("Сгенерированы данные для карты высот\nширина мира (метры): ["+world.geo.width+"]\nвысота мира (метры): ["+world.geo.height+"]");
-}
-
-
-
-function showRandomTables(){
-	var str = JSON.stringify(world);
-	var console = document.getElementById('edit_textarea');
-	console.innerHTML = str;
 }
 
  

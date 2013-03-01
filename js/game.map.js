@@ -27,8 +27,8 @@ function zoomCalc(cx,cy,zoomed){
 		gmap.zoom.oy = 0; // смещение по Y от края мира до края зума в метрах
 	}
 	if( zoomed==0 || zoomed==1 || zoomed==2 ){
-		gmap.zoom.zw = world.geo.width>>gmap.zoom.zoom;		// ширина области зума в метрах
-		gmap.zoom.zh = world.geo.height>>gmap.zoom.zoom;	// высота области зума в метрах
+		gmap.zoom.zw = world.map.geo.width>>gmap.zoom.zoom;		// ширина области зума в метрах
+		gmap.zoom.zh = world.map.geo.height>>gmap.zoom.zoom;	// высота области зума в метрах
 		gmap.zoom.zx = Math.floor(gmap.zoom.zw*cx/gmap.canvas.cw);	// смещение по X от края видимой области в метрах
 		gmap.zoom.zy = Math.floor(gmap.zoom.zh*cy/gmap.canvas.ch);	// смещение по Y от края видимой области в метрах
 		gmap.zoom.wx = gmap.zoom.ox+gmap.zoom.zx;	// смещение по X от края мира в метрах
@@ -39,14 +39,14 @@ function zoomCalc(cx,cy,zoomed){
 	}
 	if( zoomed==2 ){
 		gmap.zoom.zoom = gmap.zoom.zoom + gmap.zoom.step;	// увеличиваем зум
-		gmap.zoom.zw = world.geo.width>>gmap.zoom.zoom;		// ширина области нового зума в метрах
-		gmap.zoom.zh = world.geo.height>>gmap.zoom.zoom;	// высота области нового зума в метрах
+		gmap.zoom.zw = world.map.geo.width>>gmap.zoom.zoom;		// ширина области нового зума в метрах
+		gmap.zoom.zh = world.map.geo.height>>gmap.zoom.zoom;	// высота области нового зума в метрах
 		gmap.zoom.ox = gmap.zoom.wx-(gmap.zoom.zw>>1); // смещение по X от края мира до края зума в метрах
 		gmap.zoom.oy = gmap.zoom.wy-(gmap.zoom.zh>>1); // смещение по Y от края мира до края зума в метрах
 		if( gmap.zoom.ox<0 ){ gmap.zoom.ox=0; }
-		if( gmap.zoom.ox>(world.geo.width-gmap.zoom.zw) ){ gmap.zoom.ox=(world.geo.width-gmap.zoom.zw); }
+		if( gmap.zoom.ox>(world.map.geo.width-gmap.zoom.zw) ){ gmap.zoom.ox=(world.map.geo.width-gmap.zoom.zw); }
 		if( gmap.zoom.oy<0 ){ gmap.zoom.oy=0; }
-		if( gmap.zoom.oy>(world.geo.height-gmap.zoom.zh) ){ gmap.zoom.oy=(world.geo.height-gmap.zoom.zh); }		
+		if( gmap.zoom.oy>(world.map.geo.height-gmap.zoom.zh) ){ gmap.zoom.oy=(world.map.geo.height-gmap.zoom.zh); }		
 		msg += 'значение нового зума: zoom['+gmap.zoom.zoom+']\n';
 		msg += 'новая область отображения (метры): zw['+gmap.zoom.zw+'] zh['+gmap.zoom.zh+']\n';
 		msg += 'смещение новой области отображения (метры): ox['+gmap.zoom.ox+'] oy['+gmap.zoom.oy+']';
@@ -57,7 +57,7 @@ function zoomCalc(cx,cy,zoomed){
 function point_generator_for_canvas(cx,cy){
 	var mx = Math.floor(gmap.zoom.ox+gmap.zoom.zw*cx/gmap.canvas.cw);
 	var my = Math.floor(gmap.zoom.oy+gmap.zoom.zh*cy/gmap.canvas.ch);
-	return point_generator(mx,my);
+	return world.calculators.all(mx,my,0,0);
 }
 
 
@@ -107,32 +107,33 @@ function showMap(cx,cy,zoomed){
 			mapDrawPixel(img,x,y,p);
 	}}
 	ctx.putImageData(img, 0, 0);
+	say(map_str);
 }
 
 //---------------------------------------------------------------
 function mapDrawPixel(img,x,y,p){
-	if( world.vis.layers.map.on!=1 ){ drawPixel(img, x, y, 0, 0, 0, 255); }
-	if( world.vis.layers.map.on==1 ){ draw_map_layer(img,x,y,p); }
-	if( world.vis.layers.addsh.on==1 ){	draw_addsh_layer(img,x,y,p); }
-	if( world.vis.layers.temp.on==1 ){ draw_temp_layer(img,x,y,p); }
-	if( world.vis.layers.press.on==1 ){ draw_press_layer(img,x,y,p); }
-	if( world.vis.layers.ice.on==1 ){ draw_ice_layer(img,x,y,p); }
-	if( world.vis.layers.seasons.on==1 ){ draw_seasons_layer(img,x,y,p); }
+	if( world.map.layers.map.on!=1 ){ drawPixel(img, x, y, 0, 0, 0, 255); }
+	if( world.map.layers.map.on==1 ){ draw_map_layer(img,x,y,p); }
+//	if( world.map.layers.addsh.on==1 ){	draw_addsh_layer(img,x,y,p); }
+//	if( world.map.layers.temp.on==1 ){ draw_temp_layer(img,x,y,p); }
+//	if( world.map.layers.press.on==1 ){ draw_press_layer(img,x,y,p); }
+//	if( world.map.layers.ice.on==1 ){ draw_ice_layer(img,x,y,p); }
+//	if( world.map.layers.seasons.on==1 ){ draw_seasons_layer(img,x,y,p); }
 }
 //---------------------------------------------------------------
 function draw_map_layer(img,x,y,p){
 	// отображаем слой географической карты
-	var wl = world.lvls.water>>8;
+	var wl = world.map.levels.water>>8;
 	var c=p.h>>8;
-	if( p.h < world.lvls.water ){
+	if( p.h < world.map.levels.water ){
 		drawPixel(img, x, y, 0, (wl+c)>>1, (wl>>1)+c<<1, 255);
-	}else if( p.h < world.lvls.sand ){
+	}else if( p.h < world.map.levels.sand ){
 		drawPixel(img, x, y, 192, 192, 96, 255);
-	}else if( p.h < world.lvls.stoun ){
+	}else if( p.h < world.map.levels.stoun ){
 		var r = Math.pow(c-(wl>>1),2)>>8;
 		if( r>255 ){ r=255; }
 		drawPixel(img, x, y, r, c>>1, r>>1, 255);
-	}else if( p.h < world.lvls.ice ){
+	}else if( p.h < world.map.levels.ice ){
 		drawPixel(img, x, y, c, c, c, 255);
 	}else{
 		var cc = 128+(c>>1);
@@ -144,7 +145,7 @@ function draw_map_layer(img,x,y,p){
 function draw_addsh_layer(img,x,y,p){
 	// отображаем слой карты оледенения
 	if( p.m>0 ){
-		addPixel(img, x, y, 255, 0, 0, world.vis.layers.addsh.alpha);
+		addPixel(img, x, y, 255, 0, 0, world.map.layers.addsh.alpha);
 	}
 }
 
@@ -163,7 +164,7 @@ function draw_temp_layer(img,x,y,p){
 		g = (255-b*2);
 	}
 	if( g<0 ){ g=0; }
-	addPixel(img, x, y, r, g, b, world.vis.layers.temp.alpha);
+	addPixel(img, x, y, r, g, b, world.map.layers.temp.alpha);
 }
 
 function draw_press_layer(img,x,y,p){
@@ -181,7 +182,7 @@ function draw_press_layer(img,x,y,p){
 		r = 0;
 		b = 255;		 
 	}
-	addPixel(img, x, y, r, g, b, world.vis.layers.press.alpha);
+	addPixel(img, x, y, r, g, b, world.map.layers.press.alpha);
 }
 
 function draw_ice_layer(img,x,y,p){
@@ -194,7 +195,7 @@ function draw_ice_layer(img,x,y,p){
 		g=255;
 		b=255;
 	}
-	addPixel(img, x, y, r, g, b, world.vis.layers.ice.alpha);
+	addPixel(img, x, y, r, g, b, world.map.layers.ice.alpha);
 }
 
 function draw_seasons_layer(img,x,y,p){
@@ -222,7 +223,7 @@ function draw_seasons_layer(img,x,y,p){
 		g=200;
 		b=0;
 	}
-	addPixel(img, x, y, r, g, b, world.vis.layers.seasons.alpha);
+	addPixel(img, x, y, r, g, b, world.map.layers.seasons.alpha);
 }
 
 //---------------------------------------------------------------

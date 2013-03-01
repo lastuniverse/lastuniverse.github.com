@@ -3,19 +3,19 @@
 /* расчеты по этим данным, а также за отображение этих данных в окне карты и игровом окне            */
 /*****************************************************************************************************/
 
-WORLD = function(url){
-		this.url = url;
-		this.map = {};
-		// объекты подклассов
-		this.subclass	=	new WORLD.subclass(this);
-		this.loader		=	new WORLD.loader(this);
-		this.generators		=	new WORLD.generators(this);
+WORLD = function(url) {
+    this.url = url;
+    this.map = {};
+    // объекты подклассов
+    //this.subclass	=	new WORLD.subclass(this);
+    this.loader = new WORLD.loader(this);
+    this.generators = new WORLD.generators(this);
+    this.calculators = new WORLD.calculators(this);
 };
 
 
-WORLD.prototype.method = function(){
-		say("WORLD.prototype.method() url: ["+this.subclass.url+"]");
-		//this.subclass.method.call(this);
-		//this.subclass.url = this.url;
+WORLD.prototype.method = function() {
+    say("WORLD.prototype.method() url: [" + this.subclass.url + "]");
+    //this.subclass.method.call(this);
+    //this.subclass.url = this.url;
 };
-

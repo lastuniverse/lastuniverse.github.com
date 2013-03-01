@@ -6,7 +6,7 @@
 // функционала отслеживающего окончание обработки предыдущего запроса. Возможно можно както вывернуться замкнув url, xmlhttp и callback-и но пока правильных мыслей нет :) 
 
 
-AJAX = function(url) {
+AJAX = function(url,callback) {
     this.url = url;
     this.request = this.getXmlHttp();
     this.onLoadStart = function() {};
@@ -14,66 +14,61 @@ AJAX = function(url) {
     this.onLoadProgress = function() {};
     this.onLoadComplete = function() {};
     if (url) {
-        this.getUrlData(url);
+        this.getUrlData(url,callback);
     }
 };
 
 
-AJAX.prototype = {
-    constructor: AJAX,
-
-    getXmlHttp: function() {
-    		var request;
+AJAX.prototype.getXmlHttp = function() {
+    var request;
+    try {
+        request = new ActiveXObject("Msxml2.XMLHTTP");
+    } catch (e) {
         try {
-            request = new ActiveXObject("Msxml2.XMLHTTP");
-        } catch (e) {
-            try {
-                request = new ActiveXObject("Microsoft.XMLHTTP");
-            } catch (E) {
-                request = false;
-            }
+            request = new ActiveXObject("Microsoft.XMLHTTP");
+        } catch (E) {
+            request = false;
         }
-        if (!this.xmlhttp && typeof XMLHttpRequest != 'undefined') {
-            request = new XMLHttpRequest();
-        }
-        return request;
-    },
+    }
+    if (!this.xmlhttp && typeof XMLHttpRequest != 'undefined') {
+        request = new XMLHttpRequest();
+    }
+    return request;
+};
 
-    getUrlData: function(url) {
-        // асинхронная загрузка данных
-        var ajax = this;
-        ajax.url = url;
-        ajax.request.open('GET', url, true);
-        ajax.onLoadStart(url);
-        ajax.request.onreadystatechange = function() {
-        		var request = ajax.request;
-            if (request.readyState === request.DONE) {
-                if (request.status === 200 || request.status === 0) {
-                    if (request.responseText) {
-                        ajax.onLoadComplete(request.responseText);
-                    } else {
-                        ajax.onLoadError("[" + url + "] seems to be unreachable or file there is empty");
-                    }
+AJAX.prototype.getUrlData = function(url,callback) {
+    // асинхронная загрузка данных
+    var ajax = this;
+    ajax.url = url;
+    ajax.request.open('GET', url, true);
+    ajax.onLoadStart(url);
+    ajax.request.onreadystatechange = function() {
+        var request = ajax.request;
+        if (request.readyState === request.DONE) {
+            if (request.status === 200 || request.status === 0) {
+                if (request.responseText) {
+                    ajax.onLoadComplete(request.responseText);
+                    callback(request.responseText);
                 } else {
-                    ajax.onLoadError("Couldn't load [" + url + "] [" + request.status + "]. Error [" + request.statusText + "]");
+                    ajax.onLoadError("[" + url + "] seems to be unreachable or file there is empty");
                 }
-            } else if (request.readyState === request.LOADING) {
-                if (length === 0) {
-                    length = request.getResponseHeader("Content-Length");
-                }
-                var pocentage = request.responseText.length * 100 / length;
-                ajax.onLoadProgress({
-                    total: length,
-                    loaded: request.responseText.length,
-                    pocentage: pocentage
-                });
-
-            } else if (request.readyState === request.HEADERS_RECEIVED) {
+            } else {
+                ajax.onLoadError("Couldn't load [" + url + "] [" + request.status + "]. Error [" + request.statusText + "]");
+            }
+        } else if (request.readyState === request.LOADING) {
+            if (length === 0) {
                 length = request.getResponseHeader("Content-Length");
             }
+            var pocentage = request.responseText.length * 100 / length;
+            ajax.onLoadProgress({
+                total: length,
+                loaded: request.responseText.length,
+                pocentage: pocentage
+            });
+
+        } else if (request.readyState === request.HEADERS_RECEIVED) {
+            length = request.getResponseHeader("Content-Length");
         }
-        ajax.request.send(null);
     }
+    ajax.request.send(null);
 };
-
-

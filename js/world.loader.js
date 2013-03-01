@@ -9,29 +9,29 @@ WORLD.loader = function(scope) {
 // загружает мир (JSON файл по URL)
 WORLD.loader.prototype.openWORLD = function(url) {
     var scope = this;
-    var request = new AJAX(url);
-    request.onLoadStart = function(url) {
-        say("[openWORLD] Запускаю загрузку по адресу [" + url + "]");
-    };
-    request.onLoadError = function(errmsg) {
-        say("[openWORLD] Ошибка загрузки по адресу [" + url + "] [" + errmsg + "]");
-    };
-    request.onLoadProgress = function(staus) {
-        say(staus.procentage);
-    };
-    request.onLoadComplete = function(str) {
+    var request = new AJAX(url,
+
+    function(str) {
         scope.scope.map = JSON.parse(str);
         scope.scope.url = url;
         scope.recalcWORLD();
-        say("[openWORLD] Завершена загрузка по адресу [" + url + "]");
+        //say("[openWORLD] Завершена загрузка по адресу [" + url + "]");
+    });
+    request.onLoadStart = function(url) {
+        //say("[openWORLD] Запускаю загрузку по адресу [" + url + "]");
     };
-    say("[openWORLD] завершилась");
+    request.onLoadError = function(errmsg) {
+        //say("[openWORLD] Ошибка загрузки по адресу [" + url + "] [" + errmsg + "]");
+    };
+    request.onLoadProgress = function(staus) {
+        //say(staus.procentage);
+    };
 };
 
 
 // устанавливает значение параметров генерации и отображения (создает новый мир либо заменяет старый)
 WORLD.loader.prototype.recalcWORLD = function() {
-		var map = this.scope.map;
+    var map = this.scope.map;
     map.geo.base = 1 << map.geo.degree;
     map.geo.width = map.geo.base << 1;
     map.geo.height = map.geo.base;
@@ -40,7 +40,6 @@ WORLD.loader.prototype.recalcWORLD = function() {
     if (map.mounts.loopstart > map.mounts.loopend) map.mounts.loopstart = map.mounts.loopend - 1;
     if (map.mounts.loopstart < 0) map.mounts.loopstart = map.geo.degree - 2;
     if (map.mounts.loopend < map.mounts.loopstart) map.mounts.loopend = map.mounts.loopstart + 1;
-    say("[recalcWORLD] завершилась");
 }
 
 
@@ -88,7 +87,7 @@ WORLD.loader.prototype.resetWORLD = function(params) {
     // params.date		Объект содержащий параметры даты
     // params.date.day					текущий день в году
     // params.date.time					текущий текущее время суток*/
-    var map = {
+    this.scope.map = {
         "geo": {
             "degree": 17,
             "base": 131072,
@@ -155,13 +154,18 @@ WORLD.loader.prototype.resetWORLD = function(params) {
             "randoms": []
         }
     };
-    copyObject(params, map);
-    this.scope.map = map;
-    this.recalcWORLD();
-    say("[resetWORLD] завершилась");
+    copyObject(params, this.scope.map);
+};
+
+// преобразует мир (JSON объект) в строку и выводит ее в элемент с указанным id
+WORLD.loader.prototype.showWorldTables = function(id) {
+    var map = this.scope.map;
+    var console = document.getElementById(id);
+    console.innerHTML = JSON.stringify(map);
 };
 
 // добавляет/заменяет данные из srcobj в dstobj
+
 function copyObject(srcobj, dstobj) {
     if (typeof(srcobj) != "object") {
         dstobj = srcobj;

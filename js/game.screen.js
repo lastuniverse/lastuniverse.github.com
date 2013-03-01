@@ -131,7 +131,7 @@ function screenShow(wx,wy) {
 		for(var sx=0; sx<gscreen.screen.pw; sx+=128) {
 			var csx = sx-gscreen.screen.half.pw;
 			var coord = calcOrtoCoord(csx+csdx,csy,wx,wy);
-			var pb = point_generator(coord.wx,coord.wy);
+			var pb = world.calculators.all(coord.wx,coord.wy,0,0);
 			cellShow(sx>>7,sy>>5,pb,sx+csdx,sy,coord);			
 		}
 	}
@@ -144,7 +144,8 @@ function screenShow(wx,wy) {
 		for(var sx=0; sx<gscreen.screen.pw; sx+=128) {
 			var csx = sx-gscreen.screen.half.pw;
 			var coord = calcOrtoCoord(csx+csdx,csy,wx,wy);
-			var pb = point_generator(coord.wx,coord.wy);
+
+			var pb = world.calculators.all(coord.wx,coord.wy);
 			cellShow(sx>>7,sy>>5,pb,sx+csdx,sy,coord);			
 		}
 	}
@@ -155,7 +156,7 @@ function cellShow(sx,sy,p,csx,csy,coord){
 	// требуется переделка
 	var mix;
 	var level = gscreen.cellsize.half.h-24;
-	var rl = getPseudoRandom(coord.wx,coord.wy,2,64);
+	var rl = world.calculators.getPseudoRandom(coord.wx,coord.wy,2,64);
 	var ttype='snow';
 		if( p.t<0 ){
 			rl=rl>>2;
@@ -163,21 +164,21 @@ function cellShow(sx,sy,p,csx,csy,coord){
 			rl=rl-(rl>>2);
 			ttype='sun';
 		}
-		if( p.h < world.lvls.water ){
+		if( p.h < world.map.levels.water ){
 			mix = tiles_mix.water[ttype];
-		}else if( p.h < world.lvls.sand-2 ){
+		}else if( p.h < world.map.levels.sand-2 ){
 			mix = tiles_mix.bich[ttype];
 			level -= (rl>>1) + 10;
-		}else if( p.h < world.lvls.sand+4 ){
+		}else if( p.h < world.map.levels.sand+4 ){
 			mix = tiles_mix.duna[ttype];
 			level -= (rl>>1) + 20;
-		}else if( p.h < world.lvls.sand+16 ){
+		}else if( p.h < world.map.levels.sand+16 ){
 			mix = tiles_mix.field[ttype];
 			level -= rl;
-		}else if( p.h < world.lvls.stoun ){
+		}else if( p.h < world.map.levels.stoun ){
 			mix = tiles_mix.steppe[ttype];
 			level -= rl;
-		}else if( p.h < world.lvls.ice ){
+		}else if( p.h < world.map.levels.ice ){
 			mix = tiles_mix.stoun[ttype];
 			level -= rl;
 		}else{
@@ -187,7 +188,7 @@ function cellShow(sx,sy,p,csx,csy,coord){
 
 	var num = randomTile(mix,coord);
 	var tile = mix[num].tiles;
-	var rand = getPseudoRandom(coord.wx,coord.wy,0,tile.numbers);
+	var rand = world.calculators.getPseudoRandom(coord.wx,coord.wy,0,tile.numbers);
 	var cur = tile.list[rand];
 	var mirror = 0;
 	var dy = cur.center.y - 128;
@@ -220,7 +221,7 @@ function gameDraw(){
 function randomTile(mix,coord){
 	// псевторандомный выбор типа тайлов внутри микса 
       //var rand = Math.floor(Math.random() * 100);
-      var rand = getPseudoRandom(coord.wx,coord.wy,1,100);
+      var rand = world.calculators.getPseudoRandom(coord.wx,coord.wy,1,100);
       var min = 0;
       var max = 0;
       var ret = 0;
