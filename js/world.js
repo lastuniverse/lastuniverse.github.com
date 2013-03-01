@@ -3,7 +3,7 @@
 /* расчеты по этим данным, а также за отображение этих данных в окне карты и игровом окне            */
 /*****************************************************************************************************/
 
-WORLD = function(url) {
+WORLD = function(url,callback) {
     this.url = url;
     this.map = {};
     // объекты подклассов
@@ -11,6 +11,11 @@ WORLD = function(url) {
     this.loader = new WORLD.loader(this);
     this.generators = new WORLD.generators(this);
     this.calculators = new WORLD.calculators(this);
+
+    if( url && callback ){
+    	this.loader.openWORLD(url,callback);
+    }
+
 };
 
 
