@@ -34,68 +34,73 @@
   var world = {};
   var map_str = '';
 
-	var count_fps = 0;
-	var loops_fps = 100;
-	var time_fps_end = 0;
-	var time_fps_start = 0;
+  var count_fps = 0;
+  var loops_fps = 100;
+  var time_fps_end = 0;
+  var time_fps_start = 0;
 
- 	function onLoad() {
+  function onLoad() {
+		  geometryInit();
+      world = new WORLD();
+      //world.loader.openWORLD('http://80.237.22.134/lastuniverse.github.com/worlds/world.01.js', startWorld );
+      world.loader.openWORLD('http://lastuniverse.github.com/worlds/world.01.js', startWorld );
+  }
 
-	    world = new WORLD();
-	    //world.openWorld('http://80.237.22.134/lastuniverse.github.com/js/map.params.js');
-	    world.loader.resetWORLD({});
-	    world.loader.recalcWORLD();
+
+  function startWorld() {
+      //world.loader.resetWORLD({});
+      //world.loader.recalcWORLD();
+      //world.generators.all();
+      worldRestore();
+      screenInit();
+      //gameDraw();
+      showMan();
+ 	}
+
+
+
+  function resetWorld() {
+      world.loader.resetWORLD({});
+      worldInit();
+      world.loader.recalcWORLD();
+      worldRestore();
       world.generators.all();
-    	worldRestore();
-	    
-
-	    geometryInit();
-	    screenInit();
-	    //gameDraw();
-	    showMan();
-	}
-
-	function resetWorld(){
-		world.loader.resetWORLD({});	
-		worldInit();
-    world.loader.recalcWORLD();
-   	worldRestore();
-    world.generators.all();
-	}
+  }
 
 
-	function testFPSloops() {
-	    count_fps++;
-	    //showScreen(gscreen.ox,gscreen.oy);
-	    screenShow(gscreen.ox + count_fps, gscreen.oy + count_fps);
-	    if (count_fps < loops_fps) {
-	        setTimeout(testFPSloops, 0);
-	    } else {
-	        var me = new Date();
-	        time_fps_end = me.getTime();
-	        say("Завершена проверка скорости отрисовки игрового поля через setTimeout.\nотрисованно кадров: [" + loops_fps + "]\nзатрачено времени: [" + (time_fps_end - time_fps_start) + "]");
-	        count_fps = 0;
-	    }
-	}
+  function testFPSloops() {
+      count_fps++;
+      //showScreen(gscreen.ox,gscreen.oy);
+      screenShow(gscreen.ox + count_fps, gscreen.oy + count_fps);
+      if (count_fps < loops_fps) {
+          setTimeout(testFPSloops, 0);
+      } else {
+          var me = new Date();
+          time_fps_end = me.getTime();
+          say("Завершена проверка скорости отрисовки игрового поля через setTimeout.\nотрисованно кадров: [" + loops_fps + "]\nзатрачено времени: [" + (time_fps_end - time_fps_start) + "]");
+          count_fps = 0;
+      }
+  }
 
-	function testFPS() {
+  function testFPS() {
 
-	    var ms = new Date();
-	    time_fps_start = ms.getTime();
-	    setTimeout(testFPSloops, 50);
-	}
+      var ms = new Date();
+      time_fps_start = ms.getTime();
+      setTimeout(testFPSloops, 50);
+  }
 
-	function testFPSwhile() {
-	    var ms = new Date();
-	    time_fps_start = ms.getTime();
-	    for (var i = 0; i < loops_fps; i++) {
-	        //showScreen(gscreen.ox,gscreen.oy);
-	        screenShow(gscreen.ox, gscreen.oy);
-	    }
-	    var me = new Date();
-	    time_fps_end = me.getTime();
-	    say("Завершена проверка скорости отрисовки игрового поля  в цикле.\nотрисованно кадров: [" + loops_fps + "]\nзатрачено времени: [" + (time_fps_end - time_fps_start) + "]");
-	}
+  function testFPSwhile() {
+      var ms = new Date();
+      time_fps_start = ms.getTime();
+      for (var i = 0; i < loops_fps; i++) {
+          //showScreen(gscreen.ox,gscreen.oy);
+          screenShow(gscreen.ox, gscreen.oy);
+      }
+      var me = new Date();
+      time_fps_end = me.getTime();
+      say("Завершена проверка скорости отрисовки игрового поля  в цикле.\nотрисованно кадров: [" + loops_fps + "]\nзатрачено времени: [" + (time_fps_end - time_fps_start) + "]");
+  }
+
   </script>
   
   <link rel="stylesheet" type="text/css" href="css/game.css">

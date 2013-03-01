@@ -7,24 +7,25 @@ WORLD.loader = function(scope) {
 };
 
 // загружает мир (JSON файл по URL)
-WORLD.loader.prototype.openWORLD = function(url) {
+WORLD.loader.prototype.openWORLD = function(url, callback) {
     var scope = this;
+    
     var request = new AJAX(url,
-
-    function(str) {
+	  function(str) {
         scope.scope.map = JSON.parse(str);
         scope.scope.url = url;
         scope.recalcWORLD();
-        //say("[openWORLD] Завершена загрузка по адресу [" + url + "]");
+        callback();
+        say("[openWORLD] Завершена загрузка по адресу [" + url + "]");
     });
     request.onLoadStart = function(url) {
-        //say("[openWORLD] Запускаю загрузку по адресу [" + url + "]");
+        say("[openWORLD] Запускаю загрузку по адресу [" + url + "]");
     };
     request.onLoadError = function(errmsg) {
-        //say("[openWORLD] Ошибка загрузки по адресу [" + url + "] [" + errmsg + "]");
+        say("[openWORLD] Ошибка загрузки по адресу [" + url + "] [" + errmsg + "]");
     };
     request.onLoadProgress = function(staus) {
-        //say(staus.procentage);
+        say(staus.procentage);
     };
 };
 
