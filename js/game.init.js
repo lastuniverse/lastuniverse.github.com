@@ -10,6 +10,9 @@ function worldInit(){
 	world.map.layers.map.on = getCheckedById('map_check');
 	world.map.layers.map.alpha = getIntValueById('a_map_check',0,255);	
 
+	world.map.layers.sun.on = getCheckedById('sun_check');
+	world.map.layers.sun.alpha = getIntValueById('a_sun_check',0,255);	
+
 	world.map.layers.temp.on = getCheckedById('temp_check');
 	world.map.layers.temp.alpha = getIntValueById('a_temp_check',0,255);
 	
@@ -51,6 +54,8 @@ function worldRestore(){
 
 	setCheckedById('map_check',world.map.layers.map.on);
 	setValueById('a_map_check',world.map.layers.map.alpha);
+	setCheckedById('sun_check',world.map.layers.sun.on);
+	setValueById('a_sun_check',world.map.layers.sun.alpha);
 	setCheckedById('temp_check',world.map.layers.temp.on);
 	setValueById('a_temp_check',world.map.layers.temp.alpha);
 	setCheckedById('press_check',world.map.layers.press.on);

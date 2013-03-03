@@ -114,6 +114,7 @@ function showMap(cx,cy,zoomed){
 function mapDrawPixel(img,x,y,p){
 	if( world.map.layers.map.on!=1 ){ drawPixel(img, x, y, 0, 0, 0, 255); }
 	if( world.map.layers.map.on==1 ){ draw_map_layer(img,x,y,p); }
+	if( world.map.layers.sun.on==1 ){ draw_sun_layer(img,x,y,p); }
 //	if( world.map.layers.addsh.on==1 ){	draw_addsh_layer(img,x,y,p); }
 //	if( world.map.layers.temp.on==1 ){ draw_temp_layer(img,x,y,p); }
 //	if( world.map.layers.press.on==1 ){ draw_press_layer(img,x,y,p); }
@@ -184,6 +185,18 @@ function draw_press_layer(img,x,y,p){
 	}
 	addPixel(img, x, y, r, g, b, world.map.layers.press.alpha);
 }
+
+function draw_sun_layer(img,x,y,p){
+	// отображаем слой карты освещенности
+	var c = Math.floor(p.illuminance*255);
+	var a = Math.floor(world.map.layers.sun.alpha*c/256);
+	var r = c;
+	var g = c;
+	var b = 0;
+	addPixel(img, x, y, r, g, b, a);
+}
+	
+
 
 function draw_ice_layer(img,x,y,p){
 	// отображаем слой карты оледенения

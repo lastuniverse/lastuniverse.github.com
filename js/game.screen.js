@@ -155,6 +155,7 @@ function cellShow(sx,sy,p,csx,csy,coord){
 	// подготовка и отображение тайла на игровой экран
 	// требуется переделка
 	var mix;
+	var mix_water;
 	var level = gscreen.cellsize.half.h-24;
 	var rl = world.calculators.getPseudoRandom(coord.wx,coord.wy,2,64);
 	var ttype='snow';
@@ -166,6 +167,8 @@ function cellShow(sx,sy,p,csx,csy,coord){
 		}
 		if( p.h < world.map.levels.water ){
 			mix = tiles_mix.water[ttype];
+			mix_under_water = tiles_mix.bich[ttype];;
+
 		}else if( p.h < world.map.levels.sand-2 ){
 			mix = tiles_mix.bich[ttype];
 			level -= (rl>>1) + 10;
@@ -186,27 +189,28 @@ function cellShow(sx,sy,p,csx,csy,coord){
 			level -= rl;
 		}
 
+	if( p.h < world.map.levels.water ){
+		var num = randomTile(mix_under_water,coord);
+		var tile = mix_under_water[num].tiles;
+		var rand = world.calculators.getPseudoRandom(coord.wx,coord.wy,0,tile.numbers);
+		var cur = tile.list[rand];
+		var mirror = 0;
+		var dy = cur.center.y - 128;
+		var x = csx - cur.center.x
+		var under_level =	level +rl + 10;
+		var y = csy - (gscreen.cellsize.h<<1) - gscreen.cellsize.h + under_level - dy;
+		drawImage(x,y,cur);
+	}
+
 	var num = randomTile(mix,coord);
 	var tile = mix[num].tiles;
 	var rand = world.calculators.getPseudoRandom(coord.wx,coord.wy,0,tile.numbers);
 	var cur = tile.list[rand];
 	var mirror = 0;
 	var dy = cur.center.y - 128;
-
 	var x = csx - cur.center.x
 	var y = csy - (gscreen.cellsize.h<<1) - gscreen.cellsize.h + level - dy;
-
 	drawImage(x,y,cur);
-
-	//var sp = gscreen.screen.cells[sy][sx];
-	//sp.style.backgroundImage = 'url('+mirrors[mirror]+cur.url+')';
-	//sp.style.width = cur.width;
-	//sp.style.height = cur.height;
-	//sp.style.left = csx - cur.center.x;
-	//sp.style.top = csy - (gscreen.cellsize.h<<1) - gscreen.cellsize.h + level - dy;
-	//sp.innerHTML='';
-	//sp.innerHTML+='s:['+sx+', '+sy+']<br>';
-	//sp.innerHTML+='w:['+coord.wx+', '+coord.wy+']<br>';
 }
 
 // -------------------------------------------
