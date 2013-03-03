@@ -124,7 +124,7 @@ function calcOrtoCoord(sx, sy, wx, wy) {
 }
 
 function screenShow(wx, wy) {
-*   wx -= 200;
+		wx -= 200;
     wy -= 200;
     // отобразить игровой экран так чтобы координаты мира wx и wy оказались в центре игрового экрана
     for (var sy = 0; sy < (gscreen.screen.ph + 128); sy += 32) {
