@@ -188,7 +188,7 @@ function draw_press_layer(img,x,y,p){
 
 function draw_sun_layer(img,x,y,p){
 	// отображаем слой карты освещенности
-	var c = Math.floor(p.illuminance*255);
+	var c = Math.floor(p.illuminance_bool*255);
 	var a = Math.floor(world.map.layers.sun.alpha*c/256);
 	var r = c;
 	var g = c;
