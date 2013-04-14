@@ -45,7 +45,8 @@
       showMan();
       world = new WORLD();
       //world.loader.openWORLD('http://80.237.22.134/lastuniverse.github.io/worlds/world.00.js', startWorld );
-      world.loader.openWORLD('http://lastuniverse.github.io/worlds/world.00.js', startWorld );
+      //world.loader.openWORLD('http://lastuniverse.github.io/worlds/world.00.js', startWorld );
+      world.loader.openWORLD('worlds/world.00.js', startWorld );
   }
 
 
@@ -71,7 +72,7 @@
   function testFPSloops() {
       count_fps++;
       //showScreen(gscreen.ox,gscreen.oy);
-      screenShow(gscreen.ox + count_fps, gscreen.oy + count_fps);
+      screenShow(gscreen.ox - count_fps, gscreen.oy);
       if (count_fps < loops_fps) {
           setTimeout(testFPSloops, 0);
       } else {
