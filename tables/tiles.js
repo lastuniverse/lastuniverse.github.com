@@ -1,5 +1,5 @@
 var mirrors = [
-	'http://lastuniverse.narod.ru/'
+	'http://80.237.22.134/'
 ];
 
 var tiles = { // описание типов тайлов
