@@ -1,5 +1,5 @@
 var mirrors = [
-	'http://80.237.22.134/'
+	'http://80.237.22.134:8888/'
 ];
 
 var tiles = { // описание типов тайлов
@@ -7,34 +7,34 @@ var tiles = { // описание типов тайлов
 		blue: {
 			numbers: 1, // длинна массива (возможно ненужна, не знаю array.lenght насколько медленнее
 			list: [
-				{ width:128, height:142, center: { x:64, y:64 }, url:'app/tiles/base/base.blue.png' , loaded: 0}
+				{ width:128, height:142, center: { x:64, y:64 }, url:'tiles/base/base.blue.png' , loaded: 0}
 			]
 		},
 		gray: {
 			numbers: 1,
 			list: [
-				{ width:128, height:142, center: { x:64, y:64 }, url:'app/tiles/base/base.gray.png' , loaded: 0}
+				{ width:128, height:142, center: { x:64, y:64 }, url:'tiles/base/base.gray.png' , loaded: 0}
 			]
 		},
 		elow: {
 			numbers: 1,
 			list: [
-				{ width:128, height:142, center: { x:64, y:64 }, url:'app/tiles/base/base.elow.png' , loaded: 0}
+				{ width:128, height:142, center: { x:64, y:64 }, url:'tiles/base/base.elow.png' , loaded: 0}
 			]
 		},
 		ice: {
 			numbers: 1,
 			list: [
-				{ width:128, height:142, center: { x:64, y:64 }, url:'app/tiles/base/base.snow.png' , loaded: 0}
+				{ width:128, height:142, center: { x:64, y:64 }, url:'tiles/base/base.snow.png' , loaded: 0}
 			]
 		},
 		snow: {
 			numbers: 4,
 			list: [
-				{ width:148, height:171, center: { x:77, y:92 }, url:'app/tiles/grass/snow.00.png' , loaded: 0},
-				{ width:150, height:167, center: { x:73, y:88 }, url:'app/tiles/grass/snow.01.png' , loaded: 0},
-				{ width:148, height:169, center: { x:71, y:92 }, url:'app/tiles/grass/snow.02.png' , loaded: 0},
-				{ width:149, height:170, center: { x:76, y:91 }, url:'app/tiles/grass/snow.03.png' , loaded: 0}
+				{ width:148, height:171, center: { x:77, y:92 }, url:'tiles/grass/snow.00.png' , loaded: 0},
+				{ width:150, height:167, center: { x:73, y:88 }, url:'tiles/grass/snow.01.png' , loaded: 0},
+				{ width:148, height:169, center: { x:71, y:92 }, url:'tiles/grass/snow.02.png' , loaded: 0},
+				{ width:149, height:170, center: { x:76, y:91 }, url:'tiles/grass/snow.03.png' , loaded: 0}
 			]
 		}
 	},
@@ -42,82 +42,82 @@ var tiles = { // описание типов тайлов
 		usual: {
 			numbers: 4,
 			list: [
-				{ width:174, height:171, center: { x:85, y:92 }, url:'app/tiles/grass/grass.usual.00.png' , loaded: 0},
-				{ width:162, height:179, center: { x:72, y:100 }, url:'app/tiles/grass/grass.usual.01.png' , loaded: 0},
-				{ width:174, height:179, center: { x:89, y:102 }, url:'app/tiles/grass/grass.usual.02.png' , loaded: 0},
-				{ width:161, height:177, center: { x:89, y:98 }, url:'app/tiles/grass/grass.usual.03.png' , loaded: 0}
+				{ width:174, height:171, center: { x:85, y:92 }, url:'tiles/grass/grass.usual.00.png' , loaded: 0},
+				{ width:162, height:179, center: { x:72, y:100 }, url:'tiles/grass/grass.usual.01.png' , loaded: 0},
+				{ width:174, height:179, center: { x:89, y:102 }, url:'tiles/grass/grass.usual.02.png' , loaded: 0},
+				{ width:161, height:177, center: { x:89, y:98 }, url:'tiles/grass/grass.usual.03.png' , loaded: 0}
 			]
 		},
 		dry0: {
 			numbers: 4,
 			list: [
-				{ width:174, height:198, center: { x:85, y:119 }, url:'app/tiles/grass/grass.dry.v0.00.png' , loaded: 0},
-				{ width:174, height:197, center: { x:85, y:118 }, url:'app/tiles/grass/grass.dry.v0.01.png' , loaded: 0},
-				{ width:174, height:191, center: { x:85, y:114 }, url:'app/tiles/grass/grass.dry.v0.02.png' , loaded: 0},
-				{ width:174, height:192, center: { x:85, y:113 }, url:'app/tiles/grass/grass.dry.v0.03.png' , loaded: 0}
+				{ width:174, height:198, center: { x:85, y:119 }, url:'tiles/grass/grass.dry.v0.00.png' , loaded: 0},
+				{ width:174, height:197, center: { x:85, y:118 }, url:'tiles/grass/grass.dry.v0.01.png' , loaded: 0},
+				{ width:174, height:191, center: { x:85, y:114 }, url:'tiles/grass/grass.dry.v0.02.png' , loaded: 0},
+				{ width:174, height:192, center: { x:85, y:113 }, url:'tiles/grass/grass.dry.v0.03.png' , loaded: 0}
 			]
 		},
 		dry1: {
 			numbers: 4,
 			list: [
-				{ width:174, height:207, center: { x:85, y:130 }, url:'app/tiles/grass/grass.dry.v1.00.png' , loaded: 0},
-				{ width:174, height:208, center: { x:85, y:129 }, url:'app/tiles/grass/grass.dry.v1.01.png' , loaded: 0},
-				{ width:174, height:209, center: { x:85, y:130 }, url:'app/tiles/grass/grass.dry.v1.02.png' , loaded: 0},
-				{ width:174, height:214, center: { x:85, y:135 }, url:'app/tiles/grass/grass.dry.v1.03.png' , loaded: 0}
+				{ width:174, height:207, center: { x:85, y:130 }, url:'tiles/grass/grass.dry.v1.00.png' , loaded: 0},
+				{ width:174, height:208, center: { x:85, y:129 }, url:'tiles/grass/grass.dry.v1.01.png' , loaded: 0},
+				{ width:174, height:209, center: { x:85, y:130 }, url:'tiles/grass/grass.dry.v1.02.png' , loaded: 0},
+				{ width:174, height:214, center: { x:85, y:135 }, url:'tiles/grass/grass.dry.v1.03.png' , loaded: 0}
 			]
 		},
 		dry2: {
 			numbers: 4,
 			list: [
-				{ width:174, height:201, center: { x:85, y:122 }, url:'app/tiles/grass/grass.dry.v2.00.png' , loaded: 0},
-				{ width:174, height:210, center: { x:85, y:131 }, url:'app/tiles/grass/grass.dry.v2.01.png' , loaded: 0},
-				{ width:174, height:203, center: { x:85, y:126 }, url:'app/tiles/grass/grass.dry.v2.02.png' , loaded: 0},
-				{ width:174, height:199, center: { x:85, y:120 }, url:'app/tiles/grass/grass.dry.v2.03.png' , loaded: 0}
+				{ width:174, height:201, center: { x:85, y:122 }, url:'tiles/grass/grass.dry.v2.00.png' , loaded: 0},
+				{ width:174, height:210, center: { x:85, y:131 }, url:'tiles/grass/grass.dry.v2.01.png' , loaded: 0},
+				{ width:174, height:203, center: { x:85, y:126 }, url:'tiles/grass/grass.dry.v2.02.png' , loaded: 0},
+				{ width:174, height:199, center: { x:85, y:120 }, url:'tiles/grass/grass.dry.v2.03.png' , loaded: 0}
 			]
 		},
 		dry3: {
 			numbers: 4,
 			list: [
-				{ width:174, height:195, center: { x:85, y:116 }, url:'app/tiles/grass/grass.dry.v3.00.png' , loaded: 0},
-				{ width:162, height:198, center: { x:72, y:119 }, url:'app/tiles/grass/grass.dry.v3.01.png' , loaded: 0},
-				{ width:174, height:193, center: { x:89, y:114 }, url:'app/tiles/grass/grass.dry.v3.02.png' , loaded: 0},
-				{ width:161, height:195, center: { x:89, y:117 }, url:'app/tiles/grass/grass.dry.v3.03.png' , loaded: 0}
+				{ width:174, height:195, center: { x:85, y:116 }, url:'tiles/grass/grass.dry.v3.00.png' , loaded: 0},
+				{ width:162, height:198, center: { x:72, y:119 }, url:'tiles/grass/grass.dry.v3.01.png' , loaded: 0},
+				{ width:174, height:193, center: { x:89, y:114 }, url:'tiles/grass/grass.dry.v3.02.png' , loaded: 0},
+				{ width:161, height:195, center: { x:89, y:117 }, url:'tiles/grass/grass.dry.v3.03.png' , loaded: 0}
 			]
 		},
 		dry4: {
 			numbers: 4,
 			list: [
-				{ width:174, height:198, center: { x:85, y:119 }, url:'app/tiles/grass/grass.dry.v4.00.png' , loaded: 0},
-				{ width:163, height:202, center: { x:72, y:123 }, url:'app/tiles/grass/grass.dry.v4.01.png' , loaded: 0},
-				{ width:175, height:202, center: { x:90, y:123 }, url:'app/tiles/grass/grass.dry.v4.02.png' , loaded: 0},
-				{ width:163, height:196, center: { x:91, y:118 }, url:'app/tiles/grass/grass.dry.v4.03.png' , loaded: 0}
+				{ width:174, height:198, center: { x:85, y:119 }, url:'tiles/grass/grass.dry.v4.00.png' , loaded: 0},
+				{ width:163, height:202, center: { x:72, y:123 }, url:'tiles/grass/grass.dry.v4.01.png' , loaded: 0},
+				{ width:175, height:202, center: { x:90, y:123 }, url:'tiles/grass/grass.dry.v4.02.png' , loaded: 0},
+				{ width:163, height:196, center: { x:91, y:118 }, url:'tiles/grass/grass.dry.v4.03.png' , loaded: 0}
 			]
 		},
 		flowers0: {
 			numbers: 4,
 			list: [
-				{ width:175, height:171, center: { x:85, y:92 }, url:'app/tiles/grass/grass.flowers.v0.00.png' , loaded: 0},
-				{ width:163, height:180, center: { x:72, y:101 }, url:'app/tiles/grass/grass.flowers.v0.01.png' , loaded: 0},
-				{ width:175, height:182, center: { x:90, y:103 }, url:'app/tiles/grass/grass.flowers.v0.02.png' , loaded: 0},
-				{ width:163, height:177, center: { x:91, y:98 }, url:'app/tiles/grass/grass.flowers.v0.03.png' , loaded: 0}
+				{ width:175, height:171, center: { x:85, y:92 }, url:'tiles/grass/grass.flowers.v0.00.png' , loaded: 0},
+				{ width:163, height:180, center: { x:72, y:101 }, url:'tiles/grass/grass.flowers.v0.01.png' , loaded: 0},
+				{ width:175, height:182, center: { x:90, y:103 }, url:'tiles/grass/grass.flowers.v0.02.png' , loaded: 0},
+				{ width:163, height:177, center: { x:91, y:98 }, url:'tiles/grass/grass.flowers.v0.03.png' , loaded: 0}
 			]
 		},
 		flowers1: {
 			numbers: 4,
 			list: [
-				{ width:175, height:171, center: { x:85, y:92 }, url:'app/tiles/grass/grass.flowers.v1.00.png' , loaded: 0},
-				{ width:163, height:180, center: { x:72, y:101 }, url:'app/tiles/grass/grass.flowers.v1.01.png' , loaded: 0},
-				{ width:175, height:182, center: { x:90, y:103 }, url:'app/tiles/grass/grass.flowers.v1.02.png' , loaded: 0},
-				{ width:163, height:177, center: { x:91, y:98 }, url:'app/tiles/grass/grass.flowers.v1.03.png' , loaded: 0}
+				{ width:175, height:171, center: { x:85, y:92 }, url:'tiles/grass/grass.flowers.v1.00.png' , loaded: 0},
+				{ width:163, height:180, center: { x:72, y:101 }, url:'tiles/grass/grass.flowers.v1.01.png' , loaded: 0},
+				{ width:175, height:182, center: { x:90, y:103 }, url:'tiles/grass/grass.flowers.v1.02.png' , loaded: 0},
+				{ width:163, height:177, center: { x:91, y:98 }, url:'tiles/grass/grass.flowers.v1.03.png' , loaded: 0}
 			]
 		},
 		flowers2: {
 			numbers: 4,
 			list: [
-				{ width:175, height:204, center: { x:85, y:125 }, url:'app/tiles/grass/grass.flowers.v2.00.png' , loaded: 0},
-				{ width:163, height:194, center: { x:72, y:115 }, url:'app/tiles/grass/grass.flowers.v2.01.png' , loaded: 0},
-				{ width:175, height:195, center: { x:90, y:116 }, url:'app/tiles/grass/grass.flowers.v2.02.png' , loaded: 0},
-				{ width:163, height:202, center: { x:91, y:123 }, url:'app/tiles/grass/grass.flowers.v2.03.png' , loaded: 0}
+				{ width:175, height:204, center: { x:85, y:125 }, url:'tiles/grass/grass.flowers.v2.00.png' , loaded: 0},
+				{ width:163, height:194, center: { x:72, y:115 }, url:'tiles/grass/grass.flowers.v2.01.png' , loaded: 0},
+				{ width:175, height:195, center: { x:90, y:116 }, url:'tiles/grass/grass.flowers.v2.02.png' , loaded: 0},
+				{ width:163, height:202, center: { x:91, y:123 }, url:'tiles/grass/grass.flowers.v2.03.png' , loaded: 0}
 			]
 		}
 	},
@@ -125,46 +125,46 @@ var tiles = { // описание типов тайлов
 		sand: {
 			numbers: 4,
 			list: [
-				{ width:132, height:138, center: { x:66, y:61 }, url:'app/tiles/sand/sand.00.png' , loaded: 0},
-				{ width:132, height:138, center: { x:66, y:61 }, url:'app/tiles/sand/sand.01.png' , loaded: 0},
-				{ width:132, height:138, center: { x:66, y:61 }, url:'app/tiles/sand/sand.02.png' , loaded: 0},
-				{ width:132, height:138, center: { x:66, y:61 }, url:'app/tiles/sand/sand.03.png' , loaded: 0}
+				{ width:132, height:138, center: { x:66, y:61 }, url:'tiles/sand/sand.00.png' , loaded: 0},
+				{ width:132, height:138, center: { x:66, y:61 }, url:'tiles/sand/sand.01.png' , loaded: 0},
+				{ width:132, height:138, center: { x:66, y:61 }, url:'tiles/sand/sand.02.png' , loaded: 0},
+				{ width:132, height:138, center: { x:66, y:61 }, url:'tiles/sand/sand.03.png' , loaded: 0}
 			]
 		},
 		dry: {
 			numbers: 4,
 			list: [
-				{ width:132, height:169, center: { x:66, y:92 }, url:'app/tiles/sand/sand.grass.v0.00.png' , loaded: 0},
-				{ width:132, height:170, center: { x:66, y:93 }, url:'app/tiles/sand/sand.grass.v0.01.png' , loaded: 0},
-				{ width:132, height:177, center: { x:66, y:100 }, url:'app/tiles/sand/sand.grass.v0.02.png' , loaded: 0},
-				{ width:132, height:182, center: { x:66, y:105 }, url:'app/tiles/sand/sand.grass.v0.03.png' , loaded: 0}
+				{ width:132, height:169, center: { x:66, y:92 }, url:'tiles/sand/sand.grass.v0.00.png' , loaded: 0},
+				{ width:132, height:170, center: { x:66, y:93 }, url:'tiles/sand/sand.grass.v0.01.png' , loaded: 0},
+				{ width:132, height:177, center: { x:66, y:100 }, url:'tiles/sand/sand.grass.v0.02.png' , loaded: 0},
+				{ width:132, height:182, center: { x:66, y:105 }, url:'tiles/sand/sand.grass.v0.03.png' , loaded: 0}
 			]
 		},
 		grass: {
 			numbers: 4,
 			list: [
-				{ width:132, height:158, center: { x:66, y:81 }, url:'app/tiles/sand/sand.grass.v1.00.png' , loaded: 0},
-				{ width:132, height:162, center: { x:66, y:85 }, url:'app/tiles/sand/sand.grass.v1.01.png' , loaded: 0},
-				{ width:132, height:167, center: { x:66, y:90 }, url:'app/tiles/sand/sand.grass.v1.02.png' , loaded: 0},
-				{ width:132, height:169, center: { x:66, y:92 }, url:'app/tiles/sand/sand.grass.v1.03.png' , loaded: 0}
+				{ width:132, height:158, center: { x:66, y:81 }, url:'tiles/sand/sand.grass.v1.00.png' , loaded: 0},
+				{ width:132, height:162, center: { x:66, y:85 }, url:'tiles/sand/sand.grass.v1.01.png' , loaded: 0},
+				{ width:132, height:167, center: { x:66, y:90 }, url:'tiles/sand/sand.grass.v1.02.png' , loaded: 0},
+				{ width:132, height:169, center: { x:66, y:92 }, url:'tiles/sand/sand.grass.v1.03.png' , loaded: 0}
 			]
 		},
 		snow_sand: {
 			numbers: 4,
 			list: [
-				{ width:149, height:165, center: { x:74, y:88 }, url:'app/tiles/sand/snow.sand.00.png' , loaded: 0},
-				{ width:148, height:168, center: { x:71, y:91 }, url:'app/tiles/sand/snow.sand.01.png' , loaded: 0},
-				{ width:149, height:168, center: { x:75, y:91 }, url:'app/tiles/sand/snow.sand.02.png' , loaded: 0},
-				{ width:148, height:170, center: { x:77, y:93 }, url:'app/tiles/sand/snow.sand.03.png' , loaded: 0}
+				{ width:149, height:165, center: { x:74, y:88 }, url:'tiles/sand/snow.sand.00.png' , loaded: 0},
+				{ width:148, height:168, center: { x:71, y:91 }, url:'tiles/sand/snow.sand.01.png' , loaded: 0},
+				{ width:149, height:168, center: { x:75, y:91 }, url:'tiles/sand/snow.sand.02.png' , loaded: 0},
+				{ width:148, height:170, center: { x:77, y:93 }, url:'tiles/sand/snow.sand.03.png' , loaded: 0}
 			]
 		},
 		snow_dry: {
 			numbers: 4,
 			list: [
-				{ width:149, height:169, center: { x:74, y:92 }, url:'app/tiles/sand/snow.sand.grass.v0.00.png' , loaded: 0},
-				{ width:148, height:170, center: { x:71, y:93 }, url:'app/tiles/sand/snow.sand.grass.v0.01.png' , loaded: 0},
-				{ width:149, height:177, center: { x:75, y:100 }, url:'app/tiles/sand/snow.sand.grass.v0.02.png' , loaded: 0},
-				{ width:148, height:182, center: { x:77, y:105 }, url:'app/tiles/sand/snow.sand.grass.v0.03.png' , loaded: 0}
+				{ width:149, height:169, center: { x:74, y:92 }, url:'tiles/sand/snow.sand.grass.v0.00.png' , loaded: 0},
+				{ width:148, height:170, center: { x:71, y:93 }, url:'tiles/sand/snow.sand.grass.v0.01.png' , loaded: 0},
+				{ width:149, height:177, center: { x:75, y:100 }, url:'tiles/sand/snow.sand.grass.v0.02.png' , loaded: 0},
+				{ width:148, height:182, center: { x:77, y:105 }, url:'tiles/sand/snow.sand.grass.v0.03.png' , loaded: 0}
 			]
 		},
 	},
@@ -172,13 +172,13 @@ var tiles = { // описание типов тайлов
 		water: {
 			numbers: 1,
 			list: [
-				{ width:130, height:67, center: { x:65, y:65 }, url:'app/tiles/water/usual/water.00.png' , loaded: 0}
+				{ width:130, height:67, center: { x:65, y:65 }, url:'tiles/water/usual/water.00.png' , loaded: 0}
 			]			
 		},
 		ice: {
 			numbers: 1,
 			list: [
-				{ width:128, height:107, center: { x:64, y:77 }, url:'app/tiles/water/usual/water.ice.00.png' , loaded: 0}
+				{ width:128, height:107, center: { x:64, y:77 }, url:'tiles/water/usual/water.ice.00.png' , loaded: 0}
 			]			
 		}
 	},
@@ -186,64 +186,64 @@ var tiles = { // описание типов тайлов
 		snow: {
 			numbers: 4,
 			list: [
-				{ width:148, height:171, center: { x:77, y:92 }, url:'app/tiles/grass/snow.00.png' , loaded: 0},
-				{ width:150, height:167, center: { x:73, y:88 }, url:'app/tiles/grass/snow.01.png' , loaded: 0},
-				{ width:148, height:169, center: { x:71, y:92 }, url:'app/tiles/grass/snow.02.png' , loaded: 0},
-				{ width:149, height:170, center: { x:76, y:91 }, url:'app/tiles/grass/snow.03.png' , loaded: 0}
+				{ width:148, height:171, center: { x:77, y:92 }, url:'tiles/grass/snow.00.png' , loaded: 0},
+				{ width:150, height:167, center: { x:73, y:88 }, url:'tiles/grass/snow.01.png' , loaded: 0},
+				{ width:148, height:169, center: { x:71, y:92 }, url:'tiles/grass/snow.02.png' , loaded: 0},
+				{ width:149, height:170, center: { x:76, y:91 }, url:'tiles/grass/snow.03.png' , loaded: 0}
 			]			
 		},
 		grass: {
 			numbers: 4,
 			list: [
-				{ width:148, height:171, center: { x:77, y:92 }, url:'app/tiles/grass/snow.00.png' , loaded: 0},
-				{ width:150, height:167, center: { x:73, y:88 }, url:'app/tiles/grass/snow.01.png' , loaded: 0},
-				{ width:148, height:169, center: { x:71, y:92 }, url:'app/tiles/grass/snow.02.png' , loaded: 0},
-				{ width:149, height:170, center: { x:76, y:91 }, url:'app/tiles/grass/snow.03.png' , loaded: 0}
+				{ width:148, height:171, center: { x:77, y:92 }, url:'tiles/grass/snow.00.png' , loaded: 0},
+				{ width:150, height:167, center: { x:73, y:88 }, url:'tiles/grass/snow.01.png' , loaded: 0},
+				{ width:148, height:169, center: { x:71, y:92 }, url:'tiles/grass/snow.02.png' , loaded: 0},
+				{ width:149, height:170, center: { x:76, y:91 }, url:'tiles/grass/snow.03.png' , loaded: 0}
 			]
 		},
 		dry0: {
 			numbers: 4,
 			list: [
-				{ width:148, height:198, center: { x:77, y:119 }, url:'app/tiles/grass/snow.grass.dry.v0.00.png' , loaded: 0},
-				{ width:150, height:197, center: { x:73, y:118 }, url:'app/tiles/grass/snow.grass.dry.v0.01.png' , loaded: 0},
-				{ width:148, height:191, center: { x:71, y:114 }, url:'app/tiles/grass/snow.grass.dry.v0.02.png' , loaded: 0},
-				{ width:149, height:192, center: { x:76, y:113 }, url:'app/tiles/grass/snow.grass.dry.v0.03.png' , loaded: 0}
+				{ width:148, height:198, center: { x:77, y:119 }, url:'tiles/grass/snow.grass.dry.v0.00.png' , loaded: 0},
+				{ width:150, height:197, center: { x:73, y:118 }, url:'tiles/grass/snow.grass.dry.v0.01.png' , loaded: 0},
+				{ width:148, height:191, center: { x:71, y:114 }, url:'tiles/grass/snow.grass.dry.v0.02.png' , loaded: 0},
+				{ width:149, height:192, center: { x:76, y:113 }, url:'tiles/grass/snow.grass.dry.v0.03.png' , loaded: 0}
 			]
 		},
 		dry1: {
 			numbers: 4,
 			list: [
-				{ width:148, height:207, center: { x:71, y:130 }, url:'app/tiles/grass/snow.grass.dry.v1.00.png' , loaded: 0},
-				{ width:149, height:208, center: { x:76, y:129 }, url:'app/tiles/grass/snow.grass.dry.v1.01.png' , loaded: 0},
-				{ width:148, height:209, center: { x:77, y:130 }, url:'app/tiles/grass/snow.grass.dry.v1.02.png' , loaded: 0},
-				{ width:150, height:214, center: { x:73, y:135 }, url:'app/tiles/grass/snow.grass.dry.v1.03.png' , loaded: 0}
+				{ width:148, height:207, center: { x:71, y:130 }, url:'tiles/grass/snow.grass.dry.v1.00.png' , loaded: 0},
+				{ width:149, height:208, center: { x:76, y:129 }, url:'tiles/grass/snow.grass.dry.v1.01.png' , loaded: 0},
+				{ width:148, height:209, center: { x:77, y:130 }, url:'tiles/grass/snow.grass.dry.v1.02.png' , loaded: 0},
+				{ width:150, height:214, center: { x:73, y:135 }, url:'tiles/grass/snow.grass.dry.v1.03.png' , loaded: 0}
 			]
 		},
 		dry2: {
 			numbers: 4,
 			list: [
-				{ width:148, height:201, center: { x:77, y:122 }, url:'app/tiles/grass/snow.grass.dry.v2.00.png' , loaded: 0},
-				{ width:150, height:210, center: { x:73, y:131 }, url:'app/tiles/grass/snow.grass.dry.v2.01.png' , loaded: 0},
-				{ width:148, height:203, center: { x:71, y:126 }, url:'app/tiles/grass/snow.grass.dry.v2.02.png' , loaded: 0},
-				{ width:149, height:199, center: { x:76, y:120 }, url:'app/tiles/grass/snow.grass.dry.v2.03.png' , loaded: 0}
+				{ width:148, height:201, center: { x:77, y:122 }, url:'tiles/grass/snow.grass.dry.v2.00.png' , loaded: 0},
+				{ width:150, height:210, center: { x:73, y:131 }, url:'tiles/grass/snow.grass.dry.v2.01.png' , loaded: 0},
+				{ width:148, height:203, center: { x:71, y:126 }, url:'tiles/grass/snow.grass.dry.v2.02.png' , loaded: 0},
+				{ width:149, height:199, center: { x:76, y:120 }, url:'tiles/grass/snow.grass.dry.v2.03.png' , loaded: 0}
 			]
 		},
 		dry3: {
 			numbers: 4,
 			list: [
-				{ width:148, height:195, center: { x:71, y:116 }, url:'app/tiles/grass/snow.grass.dry.v3.00.png' , loaded: 0},
-				{ width:149, height:198, center: { x:76, y:119 }, url:'app/tiles/grass/snow.grass.dry.v3.01.png' , loaded: 0},
-				{ width:148, height:193, center: { x:77, y:114 }, url:'app/tiles/grass/snow.grass.dry.v3.02.png' , loaded: 0},
-				{ width:150, height:195, center: { x:73, y:117 }, url:'app/tiles/grass/snow.grass.dry.v3.03.png' , loaded: 0}
+				{ width:148, height:195, center: { x:71, y:116 }, url:'tiles/grass/snow.grass.dry.v3.00.png' , loaded: 0},
+				{ width:149, height:198, center: { x:76, y:119 }, url:'tiles/grass/snow.grass.dry.v3.01.png' , loaded: 0},
+				{ width:148, height:193, center: { x:77, y:114 }, url:'tiles/grass/snow.grass.dry.v3.02.png' , loaded: 0},
+				{ width:150, height:195, center: { x:73, y:117 }, url:'tiles/grass/snow.grass.dry.v3.03.png' , loaded: 0}
 			]
 		},
 		dry4: {
 			numbers: 4,
 			list: [
-				{ width:148, height:198, center: { x:71, y:119 }, url:'app/tiles/grass/snow.grass.dry.v4.00.png' , loaded: 0},
-				{ width:149, height:202, center: { x:76, y:123 }, url:'app/tiles/grass/snow.grass.dry.v4.01.png' , loaded: 0},
-				{ width:148, height:202, center: { x:77, y:123 }, url:'app/tiles/grass/snow.grass.dry.v4.02.png' , loaded: 0},
-				{ width:150, height:196, center: { x:73, y:118 }, url:'app/tiles/grass/snow.grass.dry.v4.03.png' , loaded: 0}
+				{ width:148, height:198, center: { x:71, y:119 }, url:'tiles/grass/snow.grass.dry.v4.00.png' , loaded: 0},
+				{ width:149, height:202, center: { x:76, y:123 }, url:'tiles/grass/snow.grass.dry.v4.01.png' , loaded: 0},
+				{ width:148, height:202, center: { x:77, y:123 }, url:'tiles/grass/snow.grass.dry.v4.02.png' , loaded: 0},
+				{ width:150, height:196, center: { x:73, y:118 }, url:'tiles/grass/snow.grass.dry.v4.03.png' , loaded: 0}
 			]
 		}	
 	}
