@@ -12,7 +12,7 @@ function showMan(){
 		document.body.appendChild(div);
 		
 		
-		renderer = new THREE.WebGLRenderer({antialias: true});
+	renderer = new THREE.WebGLRenderer({antialias: true, alpha: true});
     renderer.setSize(192, 192);
     div.appendChild(renderer.domElement);
     //renderer.domElement.style.border='2px solid red';
@@ -40,11 +40,13 @@ function showMan(){
 	
 	light = new THREE.DirectionalLight();
 	light.position.set( 400, 400, 400 );
-	light.intensity = 2.0;
+	light.intensity = 0.5;
 	light.castShadow = true;
 	scene.add(light);
 	
 	var loaderAnimation = new THREE.JSONLoader();
+
+
 		loaderAnimation.load("models/animation/run.js", function(anim){
 			THREE.AnimationHandler.add( anim.animation );
 		///////////////////////////////////////////////////////////////////////
@@ -58,9 +60,32 @@ function showMan(){
 			user.animation.play()
 			user.rotation.y = 0;//0.85; //3.14;
 			scene.add(user);
-			})
+			});
 		})
-	
+
+
+
+/*		loaderAnimation.load("models/ninja.json", function(anim){
+			THREE.AnimationHandler.add( anim.animations[0] );
+		///////////////////////////////////////////////////////////////////////
+			var loaderModel = new THREE.JSONLoader();
+			loaderModel.load("models/ninja.json", function(geometry,materials){
+
+			//materials[0].skinning = true;
+			test = new THREE.SkinnedMesh( geometry, materials[0] );
+			test.animation = new THREE.Animation( anim.animations[0], "act" );
+			test.animation.hierarchy = THREE.AnimationHandler.parse( anim.animations[0] );
+			test.animation.play()
+			test.scale.x = 13;
+			test.scale.y = 13;
+			test.scale.z = 13;
+			test.rotation.y = 0;//0.85; //3.14;
+			scene.add(test);
+			});
+		})
+*/
+
+
 	animate = function(t) {
 		renderer.clear();
 		renderer.render(scene, camera);
