@@ -47,7 +47,7 @@ function showMan(){
 	var loaderAnimation = new THREE.JSONLoader();
 
 
-		loaderAnimation.load("models/animation/run.js", function(anim){
+/*		loaderAnimation.load("models/animation/run.js", function(anim){
 			THREE.AnimationHandler.add( anim.animation );
 		///////////////////////////////////////////////////////////////////////
 			var loaderModel = new THREE.JSONLoader();
@@ -61,11 +61,11 @@ function showMan(){
 			user.rotation.y = 0;//0.85; //3.14;
 			scene.add(user);
 			});
-		})
+		})*/
 
 
 
-/*		loaderAnimation.load("models/ninja.json", function(anim){
+		loaderAnimation.load("models/ninja.json", function(anim){
 			THREE.AnimationHandler.add( anim.animations[0] );
 		///////////////////////////////////////////////////////////////////////
 			var loaderModel = new THREE.JSONLoader();
@@ -74,7 +74,7 @@ function showMan(){
 			//materials[0].skinning = true;
 			test = new THREE.SkinnedMesh( geometry, materials[0] );
 			test.animation = new THREE.Animation( anim.animations[0], "act" );
-			test.animation.hierarchy = THREE.AnimationHandler.parse( anim.animations[0] );
+			//test.animation.hierarchy = THREE.AnimationHandler.parse( anim.animations[0] );
 			test.animation.play()
 			test.scale.x = 13;
 			test.scale.y = 13;
@@ -83,7 +83,7 @@ function showMan(){
 			scene.add(test);
 			});
 		})
-*/
+
 
 
 	animate = function(t) {
