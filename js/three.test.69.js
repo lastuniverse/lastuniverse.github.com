@@ -59,8 +59,8 @@ function showMan(){
 
 
 		blendMesh = new THREE.BlendCharacter();
-		//blendMesh.load( "models/ninja.json", start );
-		blendMesh.load( "models/marine_anims.js", start );
+		blendMesh.load( "models/ninja.json", start );
+		//blendMesh.load( "models/marine_anims.js", start );
 
 	}
 
@@ -70,6 +70,13 @@ function showMan(){
 		blendMesh.showModel( true );
 
 		blendMesh.rotation.y = Math.PI * 180 / 180;
+		blendMesh.scale.all = function(n){
+			blendMesh.scale.x=n;
+			blendMesh.scale.y=n;
+			blendMesh.scale.z=n;
+
+		};
+		blendMesh.scale.all(10);
 		scene.add( blendMesh );
 
 /*		var aspect = 1;
@@ -92,15 +99,15 @@ function showMan(){
 
 
 
-		blendMesh.animations[ 'idle' ].weight = 1 / 3;
+/*		blendMesh.animations[ 'idle' ].weight = 1 / 3;
 		blendMesh.animations[ 'walk' ].weight = 1 / 3;
 		blendMesh.animations[ 'run' ].weight = 1 / 3;
 		blendMesh.play("run");
+*/
 
-/*
 		blendMesh.animations[ 'ninja.ms3d.act' ].weight = 1 / 3;
 		blendMesh.play("ninja.ms3d.act");
-*/
+
 		isFrameStepping = false;
 
 		animate();
