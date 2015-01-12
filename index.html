@@ -88,27 +88,27 @@
     // var axes = new THREE.AxisHelper( 20 );
     // scene.add(axes);
 
-    // Загружаем текстуру
-    var texture = THREE.ImageUtils.loadTexture( 'img/tiles/ground01.gif' );
-    //texture.anisotropy = renderer.getMaxAnisotropy();
-        texture.wrapS = THREE.RepeatWrapping;
-        texture.wrapT = THREE.RepeatWrapping;
-        texture.repeat.x = 1;
-        texture.repeat.y = 1;
+    // // Загружаем текстуру
+    // var texture = THREE.ImageUtils.loadTexture( 'img/tiles/ground01.gif' );
+    // //texture.anisotropy = renderer.getMaxAnisotropy();
+    //     texture.wrapS = THREE.RepeatWrapping;
+    //     texture.wrapT = THREE.RepeatWrapping;
+    //     texture.repeat.x = 1;
+    //     texture.repeat.y = 1;
 
-    var material = new THREE.MeshBasicMaterial( { map: texture, side: THREE.DoubleSide } );
+    // var material = new THREE.MeshBasicMaterial( { map: texture, side: THREE.DoubleSide } );
 
-    // Добавляем плоскость
-    var planeGeometry = new THREE.PlaneGeometry(60,20);
-    var plane = new THREE.Mesh(planeGeometry,material); // Добавляем текстуру на платформу
+    // // Добавляем плоскость
+    // var planeGeometry = new THREE.PlaneGeometry(30,10);
+    // var plane = new THREE.Mesh(planeGeometry,material); // Добавляем текстуру на платформу
 
-    plane.receiveShadow = true;
-    plane.rotation.x = -0.5*Math.PI;
-    plane.rotation.z = -0.5*Math.PI;
-    plane.position.x = 0;
-    plane.position.y = 0;
-    plane.position.z = 0;
-    scene.add(plane);
+    // plane.receiveShadow = true;
+    // plane.rotation.x = -0.5*Math.PI;
+    // plane.rotation.z = -0.5*Math.PI;
+    // plane.position.x = 0;
+    // plane.position.y = 0;
+    // plane.position.z = 0;
+    // scene.add(plane);
 
 
     // Земля
@@ -116,32 +116,43 @@
         'grass.01.01.png', 'grass.01.02.png', 'grass.01.03.png', 'grass.01.04.png', 'grass.01.05.png', 'grass.01.06.png', 'grass.01.07.png',
         'grass.02.01.png', 'grass.02.02.png', 'grass.02.03.png', 'grass.02.04.png', 'grass.02.05.png', 'grass.02.06.png',
         'grass.03.01.png', 'grass.03.02.png', 'grass.03.03.png', 'grass.03.04.png', 'grass.03.05.png', 'grass.03.06.png', 'grass.03.07.png',
-        'sand.01.01.png', 'sand.02.01.png'
+        'sand.01.01.png', 
+        'sand.02.01.png', 'sand.02.02.png', 'sand.02.03.png', 'sand.02.04.png'
     ];
     var groungTexture = [];
     var groungMaterial = [];
     i = 0;
-    for(i=0;i<22;i++){
+    for(i=0;i<25;i++){
         groungTexture[i] = THREE.ImageUtils.loadTexture( 'img/tiles/'+groungList[i] );
         groungTexture[i].anisotropy = renderer.getMaxAnisotropy();
-        groungMaterial[i] = new THREE.MeshBasicMaterial( { map: groungTexture[1], transparent: true, opacity: 1.0} );
+        groungMaterial[i] = new THREE.MeshBasicMaterial( { map: groungTexture[i], transparent: true, opacity: 1.0} );
     }
 
     var pX=0;
     var pY=0;
-    var groungPlaneGeometry = new THREE.PlaneGeometry(6,6);
+    var groungPlaneGeometry = [];
     var groungPlane = [];
-    for(pX=0;pX<5;pX++){
+    for(pX=-5;pX<5;pX++){
         groungPlane[pX] = [];
-        for(pY=0;pY<5;pY++){
-            var r = getRandomInt(0,21);
-            groungPlane[pX][pY] = new THREE.Mesh(groungPlaneGeometry,roungMaterial[r]);
+        groungPlaneGeometry[pX] = [];
+        for(pY=-5;pY<5;pY++){
+            groungPlaneGeometry[pX][pY] = new THREE.PlaneGeometry(6,6);
+            var r = getRandomInt(20,24);
+            console.log('r: ['+r+']');
+            groungPlane[pX][pY] = new THREE.Mesh(groungPlaneGeometry[pX][pY],groungMaterial[r]);
 
             groungPlane[pX][pY].rotation.x = -0.5*Math.PI;
             groungPlane[pX][pY].rotation.z = -0.5*Math.PI;
-            groungPlane[pX][pY].position.x = 0;
-            groungPlane[pX][pY].position.y = 1;
-            groungPlane[pX][pY].position.z = 0;
+
+            groungPlane[pX][pY].position.x = pX*3;
+            groungPlane[pX][pY].position.y = Math.random();
+            groungPlane[pX][pY].position.z = pY*3;
+            
+            if(pX%2){ groungPlane[pX][pY].position.y += 0.01; }
+            if(pY%2){ groungPlane[pX][pY].position.y += 0.02; }
+
+            if(r==20){ groungPlane[pX][pY].position.y += 1; }
+            
             scene.add(groungPlane[pX][pY]);
     }}
 
@@ -167,7 +178,7 @@
     monsterPlane.rotation.x = -0.5*Math.PI;
     monsterPlane.rotation.z = -0.5*Math.PI;
     monsterPlane.position.x = 0;
-    monsterPlane.position.y = 1;
+    monsterPlane.position.y = 3;
     monsterPlane.position.z = 0;
     scene.add(monsterPlane);
 
