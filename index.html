@@ -3,8 +3,8 @@
     <head>
         <title>Example 01.01 - Basic skeleton</title>
         <script type="text/javascript" src="libs/three.min.js"></script>
-        <script type="text/javascript" src="libs/stats.min.js"></script>
-        <script type="text/javascript" src="libs/dat.gui.min.js"></script>
+        <!--script type="text/javascript" src="libs/stats.min.js"></script-->
+        <!--script type="text/javascript" src="libs/dat.gui.min.js"></script-->
         <script type="text/javascript" src="libs/jquery-1.11.2.min.js"></script>
 
         <style>
@@ -21,7 +21,7 @@
         <div id="WebGL-output"></div>
 
         <!--Div which stat hold the Output -->
-        <div id="Stats-output"></div>
+        <!--div id="Stats-output"></div-->
 
         <!--Javascript code that runs our Three.js examples -->
         <script type="text/javascript">
@@ -31,18 +31,29 @@
     var i = 0;
 
 
-    // Контроллеры интерфейс
-    var controls = new function() {
-        // this.rotationSpeed = 0.02;
-        // this.bouncingSpeed = 0.03;
-        this.cameraPositionX = 0;
-        //this.monsterRotate = 0;
-    }
-    var gui = new dat.GUI();
-    // gui.add(controls, 'rotationSpeed',0,0.5);
-    // gui.add(controls, 'bouncingSpeed',0,0.5);
-    gui.add(controls, 'cameraPositionX',0,100);
-    //gui.add(controls, 'monsterRotate',0,360);
+    // // Контроллеры интерфейс
+    // var controls = new function() {
+    //     // this.rotationSpeed = 0.02;
+    //     // this.bouncingSpeed = 0.03;
+    //     this.cameraPositionX = 0;
+    //     //this.monsterRotate = 0;
+    // }
+    // var gui = new dat.GUI();
+    // // gui.add(controls, 'rotationSpeed',0,0.5);
+    // // gui.add(controls, 'bouncingSpeed',0,0.5);
+    // gui.add(controls, 'cameraPositionX',0,100);
+    // //gui.add(controls, 'monsterRotate',0,360);
+
+    // // Функция инициализации вывода статистики
+    // function initStats() {
+    //     var stats = new Stats();
+    //     stats.setMode(0);
+    //     stats.domElement.style.position = 'absolute';
+    //     stats.domElement.style.left = '0px';
+    //     stats.domElement.style.top = '0px';
+    //     $("#Stats-output").append(stats.domElement );
+    //     return stats;
+    // }
     
     // вычисление угла по координатам центра и точки
     function get_angle(x, y){
@@ -56,18 +67,8 @@
         return Math.floor(Math.random() * (max - min + 1)) + min;
     }
 
-    // Функция инициализации вывода статистики
-    function initStats() {
-        var stats = new Stats();
-        stats.setMode(0);
-        stats.domElement.style.position = 'absolute';
-        stats.domElement.style.left = '0px';
-        stats.domElement.style.top = '0px';
-        $("#Stats-output").append(stats.domElement );
-        return stats;
-    }
 
-    var stats = initStats();
+    //var stats = initStats();
 
     var scene = new THREE.Scene();
 
@@ -82,33 +83,6 @@
     renderer.setClearColorHex(0xEEEEEE, 1.0);
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.shadowMapEnabled = true
-
-
-    // Добавляем оси
-    // var axes = new THREE.AxisHelper( 20 );
-    // scene.add(axes);
-
-    // // Загружаем текстуру
-    // var texture = THREE.ImageUtils.loadTexture( 'img/tiles/ground01.gif' );
-    // //texture.anisotropy = renderer.getMaxAnisotropy();
-    //     texture.wrapS = THREE.RepeatWrapping;
-    //     texture.wrapT = THREE.RepeatWrapping;
-    //     texture.repeat.x = 1;
-    //     texture.repeat.y = 1;
-
-    // var material = new THREE.MeshBasicMaterial( { map: texture, side: THREE.DoubleSide } );
-
-    // // Добавляем плоскость
-    // var planeGeometry = new THREE.PlaneGeometry(30,10);
-    // var plane = new THREE.Mesh(planeGeometry,material); // Добавляем текстуру на платформу
-
-    // plane.receiveShadow = true;
-    // plane.rotation.x = -0.5*Math.PI;
-    // plane.rotation.z = -0.5*Math.PI;
-    // plane.position.x = 0;
-    // plane.position.y = 0;
-    // plane.position.z = 0;
-    // scene.add(plane);
 
 
     // Земля
@@ -229,15 +203,14 @@
     function renderScene() {
         setTimeout(function() {
             monsterMaterial.map=monsterTexture[i];
-
             i++;
             if( i>=22 ){ i=0; }
 
-            camera.position.x = controls.cameraPositionX;
+            camera.position.x = 0; //controls.cameraPositionX;
             camera.lookAt(scene.position);
 
             // перерисовываем статистику и рендер
-            stats.update();
+            //stats.update();
             requestAnimationFrame(renderScene);
             renderer.render(scene, camera);
         }, 1000/fps);
