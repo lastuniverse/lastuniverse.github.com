@@ -65,7 +65,11 @@
 
     var scene = new THREE.Scene();
 
-    var camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight , 0.1, 1000);
+    //var camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight , 0.1, 1000);
+    var camS = 0.05;
+    var camW = window.innerWidth*camS;
+    var camH = window.innerHeight*camS;
+    var camera = new THREE.OrthographicCamera(  camW / - 2, camW / 2, camH / 2, camH / - 2, 1, 31 );
 
     // Добавляем рендер
     var renderer = new THREE.WebGLRenderer({antialias: true, alpha: true});
@@ -146,10 +150,11 @@
 
     // управление мышкой
     document.addEventListener('mousemove', function (event){
-        // / 
-        cursorPlane.position.z = -parseInt((event.clientX-window.innerWidth/2)*0.05);
-        cursorPlane.position.x = parseInt((event.clientY-window.innerHeight/2)*0.05);
-        var angle = get_angle(cursorPlane.position.z,cursorPlane.position.x);
+        var z = -((event.clientX-window.innerWidth/2)*camS);
+        var x = (event.clientY-window.innerHeight/2)*camS;
+        cursorPlane.position.z = z;
+        cursorPlane.position.x = x;
+        var angle = get_angle(z,x);
         monsterPlane.rotation.z = (angle/360)*2*Math.PI;
 
     })
@@ -176,7 +181,7 @@
 
     // Настраиваем позицию камеры
     camera.position.x = 0;
-    camera.position.y = 50;
+    camera.position.y = 30;
     camera.position.z = 0;
     camera.lookAt(scene.position);
 
