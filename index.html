@@ -106,10 +106,10 @@
     var pY=0;
     var groungPlaneGeometry = [];
     var groungPlane = [];
-    for(pX=-8;pX<7;pX++){
+    for(pX=-5;pX<6;pX++){
         groungPlane[pX] = [];
         groungPlaneGeometry[pX] = [];
-        for(pY=-5;pY<6;pY++){
+        for(pY=-7;pY<8;pY++){
             groungPlaneGeometry[pX][pY] = new THREE.PlaneGeometry(6,6);
             var r = getRandomInt(20,24);
             console.log('r: ['+r+']');
