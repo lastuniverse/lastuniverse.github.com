@@ -25,6 +25,10 @@
 
         <!--Javascript code that runs our Three.js examples -->
         <script type="text/javascript">
+    // Прячем курсор
+    $('body').mouseover(function(){
+        $(this).css({cursor: 'none'});
+    });
         // once everything is loaded, we run our Three.js stuff.
         $(function () {
 
