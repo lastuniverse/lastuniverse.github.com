@@ -86,7 +86,7 @@
     var renderer = new THREE.WebGLRenderer({antialias: true, alpha: true});
     renderer.setClearColorHex(0xEEEEEE, 1.0);
     renderer.setSize(window.innerWidth, window.innerHeight);
-    renderer.shadowMapEnabled = true
+    renderer.shadowMapEnabled = false;
 
 
     // Земля
@@ -103,7 +103,7 @@
     for(i=0;i<25;i++){
         groungTexture[i] = THREE.ImageUtils.loadTexture( 'img/tiles/'+groungList[i] );
         groungTexture[i].anisotropy = renderer.getMaxAnisotropy();
-        groungMaterial[i] = new THREE.MeshBasicMaterial( { map: groungTexture[i], transparent: true, opacity: 1.0} );
+        groungMaterial[i] = new THREE.MeshLambertMaterial( { map: groungTexture[i], transparent: true, opacity: 1.0} );
     }
 
     var pX=0;
@@ -152,7 +152,7 @@
     var monsterPlaneGeometry = new THREE.PlaneGeometry(6,8);
     var monsterPlane = new THREE.Mesh(monsterPlaneGeometry,monsterMaterial);
 
-    monsterPlane.castShadow = true;
+    monsterPlane.castShadow = false;
     monsterPlane.rotation.x = -0.5*Math.PI;
     monsterPlane.rotation.z = -0.5*Math.PI;
     monsterPlane.position.x = 0;
@@ -169,7 +169,7 @@
     var cursorPlaneGeometry = new THREE.PlaneGeometry(2,2);
     var cursorPlane = new THREE.Mesh(cursorPlaneGeometry,cursorMaterial);
 
-    cursorPlane.castShadow = true;
+    cursorPlane.castShadow = false;
     cursorPlane.rotation.x = -0.5*Math.PI;
     cursorPlane.rotation.z = -0.5*Math.PI;
     cursorPlane.position.x = 0;
@@ -183,6 +183,8 @@
         var x = (event.clientY-window.innerHeight/2)*camS;
         cursorPlane.position.z = z;
         cursorPlane.position.x = x;
+        light.position.z = z;
+        light.position.x = x;
         var angle = get_angle(z,x);
         monsterPlane.rotation.z = (angle/360)*2*Math.PI;
 
@@ -195,10 +197,18 @@
     camera.lookAt(scene.position);
 
     // Добавление источника света
-    var spotLight = new THREE.SpotLight( 0xffffff );
-    spotLight.position.set( -40, 60, -10 );
-    scene.add(spotLight );
-    spotLight.castShadow = true;
+    var lightCenter = new THREE.PointLight( 0xffffff );
+    lightCenter.position.set( 0, 5, 0 );
+    lightCenter.intensity = 1;
+    lightCenter.distance = 16;
+    scene.add(lightCenter );
+
+    var light = new THREE.PointLight( 0xffffff );
+    light.position.set( 0, 5, 0 );
+    light.intensity = 0.5;
+    light.distance = 20;
+    scene.add(light );
+    
 
     // Добавляем функцию обновления рендера
     var fps = 20;
