@@ -5,7 +5,7 @@
         <script type="text/javascript" src="libs/three.min.js"></script>
         <script type="text/javascript" src="js/Object2d.js"></script>
         <!--script type="text/javascript" src="libs/stats.min.js"></script-->
-        <!--script type="text/javascript" src="libs/dat.gui.min.js"></script-->
+        <script type="text/javascript" src="libs/dat.gui.min.js"></script>
         <script type="text/javascript" src="libs/jquery-1.11.2.min.js"></script>
 
         <style>
@@ -26,6 +26,7 @@
 
         <!--Javascript code that runs our Three.js examples -->
         <script type="text/javascript">
+
     // Прячем курсор
     $('body').mouseover(function(){
         $(this).css({cursor: 'none'});
@@ -39,29 +40,30 @@
     var i = 0;
 
 
-    // // Контроллеры интерфейс
-    // var controls = new function() {
-    //     // this.rotationSpeed = 0.02;
-    //     // this.bouncingSpeed = 0.03;
-    //     this.cameraPositionX = 0;
-    //     //this.monsterRotate = 0;
-    // }
-    // var gui = new dat.GUI();
-    // // gui.add(controls, 'rotationSpeed',0,0.5);
-    // // gui.add(controls, 'bouncingSpeed',0,0.5);
-    // gui.add(controls, 'cameraPositionX',0,100);
-    // //gui.add(controls, 'monsterRotate',0,360);
+    // Контроллеры интерфейс
+    var controls = new function() {
+        // this.rotationSpeed = 0.02;
+        this.bouncingSpeed = 0.03;
+        this.cameraScale = 0.02;
+        //this.monsterRotate = 0;
+    }
+    var gui = new dat.GUI();
+    // gui.add(controls, 'rotationSpeed',0,0.5);
+    gui.add(controls, 'bouncingSpeed',0,0.5);
+    gui.add(controls, 'cameraScale',0.5,2.2);
 
-    // // Функция инициализации вывода статистики
-    // function initStats() {
-    //     var stats = new Stats();
-    //     stats.setMode(0);
-    //     stats.domElement.style.position = 'absolute';
-    //     stats.domElement.style.left = '0px';
-    //     stats.domElement.style.top = '0px';
-    //     $("#Stats-output").append(stats.domElement );
-    //     return stats;
-    // }
+    //gui.add(controls, 'monsterRotate',0,360);
+
+    // Функция инициализации вывода статистики
+    function initStats() {
+        var stats = new Stats();
+        stats.setMode(0);
+        stats.domElement.style.position = 'absolute';
+        stats.domElement.style.left = '0px';
+        stats.domElement.style.top = '0px';
+        $("#Stats-output").append(stats.domElement );
+        return stats;
+    }
     
     // вычисление угла по координатам центра и точки
     function get_angle(x, y){
@@ -260,8 +262,21 @@
     var fps = 20;
     var step = 0;
     var i = 0;
+    var scale=controls.cameraScale;
     function renderScene() {
         setTimeout(function() {
+            if( scale != controls.cameraScale ){
+                camS = 0.05*controls.cameraScale;
+                camW = window.innerWidth*camS;
+                camH = window.innerHeight*camS;
+                camera.left = camW / - 2;
+                camera.right = camW / 2;
+                camera.top = camH / 2;
+                camera.bottom = camH / - 2;
+                camera.updateProjectionMatrix ()
+                scale=controls.cameraScale;
+            }
+            
             monsterMaterial.map=monsterTexture[i];
             i++;
             if( i>=22 ){ i=0; }
