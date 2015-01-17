@@ -51,7 +51,7 @@
     var gui = new dat.GUI();
     // gui.add(controls, 'rotationSpeed',0,0.5);
     gui.add(controls, 'light');
-    gui.add(controls, 'cameraScale',0.5,2.2);
+    gui.add(controls, 'cameraScale',0.4,2.0);
     gui.add(controls, 'cameraRotate',0,360);
 
     // Функция инициализации вывода статистики
@@ -286,7 +286,7 @@
                 EnvLight = controls.light;
             }
             if( scale != controls.cameraScale ){
-                camS = 0.05*controls.cameraScale;
+                camS = 0.05*(1/controls.cameraScale);
                 camW = window.innerWidth*camS;
                 camH = window.innerHeight*camS;
                 camera.left = camW / - 2;
