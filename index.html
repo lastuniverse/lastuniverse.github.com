@@ -297,8 +297,9 @@
                 scale=controls.cameraScale;
             }
             if( cameraRotate != controls.cameraRotate ){
-                camera.rotateOnAxis((new THREE.Vector3(0, 0, 1).normalize()), degInRad(-cameraRotate));
-                camera.rotateOnAxis((new THREE.Vector3(0, 0, 1).normalize()), degInRad(controls.cameraRotate));
+                camera.rotation.z = degInRad(controls.cameraRotate);
+                //camera.rotateOnAxis((new THREE.Vector3(0, 0, 1).normalize()), degInRad(-cameraRotate));
+                //camera.rotateOnAxis((new THREE.Vector3(0, 0, 1).normalize()), degInRad(controls.cameraRotate));
                 cameraRotate = controls.cameraRotate;
             }
 
