@@ -3,6 +3,7 @@
     <head>
         <title>Example 01.01 - Basic skeleton</title>
         <script type="text/javascript" src="libs/three.min.js"></script>
+        <script type="text/javascript" src="js/Object2d.js"></script>
         <!--script type="text/javascript" src="libs/stats.min.js"></script-->
         <!--script type="text/javascript" src="libs/dat.gui.min.js"></script-->
         <script type="text/javascript" src="libs/jquery-1.11.2.min.js"></script>
@@ -29,6 +30,9 @@
     $('body').mouseover(function(){
         $(this).css({cursor: 'none'});
     });
+
+
+
         // once everything is loaded, we run our Three.js stuff.
         $(function () {
 
@@ -64,7 +68,7 @@
         if(x==0) return (y>0) ? 180 : 0;
         var a = Math.atan(y/x)*180/Math.PI;
         a = (x > 0) ? a+90 : a+270;
-        a = (a<180) ? a+180 : a-180;
+        a = (a<90) ? a+270 : a-90;
         return a;
     }
     function getRandomInt(min, max) {
@@ -110,29 +114,46 @@
     var pY=0;
     var groungPlaneGeometry = [];
     var groungPlane = [];
-    for(pX=-5;pX<6;pX++){
+    for(pX=-7;pX<8;pX++){
         groungPlane[pX] = [];
         groungPlaneGeometry[pX] = [];
-        for(pY=-7;pY<8;pY++){
+        for(pY=-5;pY<6;pY++){
             groungPlaneGeometry[pX][pY] = new THREE.PlaneGeometry(6,6);
             var r = getRandomInt(20,24);
             console.log('r: ['+r+']');
             groungPlane[pX][pY] = new THREE.Mesh(groungPlaneGeometry[pX][pY],groungMaterial[r]);
 
-            groungPlane[pX][pY].rotation.x = -0.5*Math.PI;
-            groungPlane[pX][pY].rotation.z = -0.5*Math.PI;
+            // groungPlane[pX][pY].rotation.x = -0.5*Math.PI;
+            // groungPlane[pX][pY].rotation.z = -0.5*Math.PI;
 
             groungPlane[pX][pY].position.x = pX*3;
-            groungPlane[pX][pY].position.y = Math.random();
-            groungPlane[pX][pY].position.z = pY*3;
+            groungPlane[pX][pY].position.y = pY*3;
+            groungPlane[pX][pY].position.z = Math.random();
             
-            if(pX%2){ groungPlane[pX][pY].position.y += 0.01; }
-            if(pY%2){ groungPlane[pX][pY].position.y += 0.02; }
-
-            if(r==20){ groungPlane[pX][pY].position.y += 1; }
-            
+            if(pX%2){ groungPlane[pX][pY].position.z += 0.01; }
+            if(pY%2){ groungPlane[pX][pY].position.z += 0.02; }
+            if(r==20){ groungPlane[pX][pY].position.z += 1; }
             scene.add(groungPlane[pX][pY]);
     }}
+
+    //  Проверка работы с анимированными объектами
+    obj2d = new THREE.Object2dContainer();
+    obj2d.load( "img/sprites/zombie02.json", function(){ 
+        console.log("object loaded");
+        var obj1 = obj2d.create("zombie1",renderer);
+        obj1.animations.walk.Plane.position.x = 10;
+        obj1.animations.walk.Plane.position.y = 10;
+        obj1.animations.walk.Plane.position.z = 3;
+        scene.add(obj1.animations.walk.Plane);
+
+        var obj2 = obj2d.create("zombie1",renderer);
+        obj2.animations.walk.Plane.position.x = -10;
+        obj2.animations.walk.Plane.position.y = -10;
+        obj2.animations.walk.Plane.position.z = 3;
+        scene.add(obj2.animations.walk.Plane);
+    });
+
+
 
     // Добавляем монстра
     var monsterTexture = [];
@@ -153,11 +174,11 @@
     var monsterPlane = new THREE.Mesh(monsterPlaneGeometry,monsterMaterial);
 
     monsterPlane.castShadow = false;
-    monsterPlane.rotation.x = -0.5*Math.PI;
-    monsterPlane.rotation.z = -0.5*Math.PI;
+    //monsterPlane.rotation.x = -0.5*Math.PI;
+    //monsterPlane.rotation.z = -0.5*Math.PI;
     monsterPlane.position.x = 0;
-    monsterPlane.position.y = 3;
-    monsterPlane.position.z = 0;
+    monsterPlane.position.y = 0;
+    monsterPlane.position.z = 3;
     scene.add(monsterPlane);
 
 
@@ -170,41 +191,66 @@
     var cursorPlane = new THREE.Mesh(cursorPlaneGeometry,cursorMaterial);
 
     cursorPlane.castShadow = false;
-    cursorPlane.rotation.x = -0.5*Math.PI;
-    cursorPlane.rotation.z = -0.5*Math.PI;
+    // cursorPlane.rotation.x = -0.5*Math.PI;
+    // cursorPlane.rotation.z = -0.5*Math.PI;
     cursorPlane.position.x = 0;
-    cursorPlane.position.y = 6;
-    cursorPlane.position.z = 0;
+    cursorPlane.position.y = 0;
+    cursorPlane.position.z = 6;
     scene.add(cursorPlane);
 
     // управление мышкой
     document.addEventListener('mousemove', function (event){
-        var z = -((event.clientX-window.innerWidth/2)*camS);
-        var x = (event.clientY-window.innerHeight/2)*camS;
-        cursorPlane.position.z = z;
+        var x = (event.clientX-window.innerWidth/2)*camS;
+        var y = -(event.clientY-window.innerHeight/2)*camS;
         cursorPlane.position.x = x;
-        light.position.z = z;
+        cursorPlane.position.y = y;
         light.position.x = x;
-        var angle = get_angle(z,x);
+        light.position.y = y;
+        var angle = get_angle(x,y);
         monsterPlane.rotation.z = (angle/360)*2*Math.PI;
 
     })
 
+    // управление мышкой
+    $(document).bind("contextmenu",function(e){
+        return false;
+    });
+
+/*    $('body').click(function() {
+        if(light.position.z == 5){
+            light.position.z = 20;
+        }else{
+            light.position.z = 5;
+        }
+    });*/
+
+    $('body').mousedown(function(e){ 
+        if( e.button == 2 ) { 
+            if(light.position.z == 5){
+                light.position.z = 20;
+            }else{
+                light.position.z = 5;
+            }
+            return false; 
+        } 
+        return true; 
+    }); 
+
     // Настраиваем позицию камеры
     camera.position.x = 0;
-    camera.position.y = 30;
-    camera.position.z = 0;
+    camera.position.y = 0;
+    camera.position.z = 30;
     camera.lookAt(scene.position);
 
     // Добавление источника света
     var lightCenter = new THREE.PointLight( 0xffffff );
-    lightCenter.position.set( 0, 5, 0 );
+    lightCenter.position.set( 0, 0, 5 );
     lightCenter.intensity = 1;
     lightCenter.distance = 16;
     scene.add(lightCenter );
 
     var light = new THREE.PointLight( 0xffffff );
-    light.position.set( 0, 5, 0 );
+    light.position.set( 0, 0, 5 );
     light.intensity = 0.5;
     light.distance = 20;
     scene.add(light );
