@@ -43,13 +43,13 @@
     // Контроллеры интерфейс
     var controls = new function() {
         // this.rotationSpeed = 0.02;
-        this.bouncingSpeed = 0.03;
+        this.light = false;
         this.cameraScale = 0.02;
         //this.monsterRotate = 0;
     }
     var gui = new dat.GUI();
     // gui.add(controls, 'rotationSpeed',0,0.5);
-    gui.add(controls, 'bouncingSpeed',0,0.5);
+    gui.add(controls, 'light');
     gui.add(controls, 'cameraScale',0.5,2.2);
 
     //gui.add(controls, 'monsterRotate',0,360);
@@ -256,6 +256,9 @@
     light.intensity = 0.5;
     light.distance = 20;
     scene.add(light );
+
+    var lightEnv = new THREE.AmbientLight( 0xffffff );
+    //scene.add(lightEnv );
     
 
     // Добавляем функцию обновления рендера
@@ -263,8 +266,19 @@
     var step = 0;
     var i = 0;
     var scale=controls.cameraScale;
+    var EnvLight = false;
     function renderScene() {
         setTimeout(function() {
+            if( controls.light != EnvLight ){
+                if( controls.light == true ){
+                    scene.add(lightEnv );
+                }else{
+                    scene.remove(lightEnv.name );
+                    scene.remove(lightEnv);
+                }
+
+                EnvLight = controls.light;
+            }
             if( scale != controls.cameraScale ){
                 camS = 0.05*controls.cameraScale;
                 camW = window.innerWidth*camS;
