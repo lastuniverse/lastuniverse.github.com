@@ -45,14 +45,14 @@
         // this.rotationSpeed = 0.02;
         this.light = false;
         this.cameraScale = 0.02;
+        this.cameraRotate = 0;
         //this.monsterRotate = 0;
     }
     var gui = new dat.GUI();
     // gui.add(controls, 'rotationSpeed',0,0.5);
     gui.add(controls, 'light');
     gui.add(controls, 'cameraScale',0.5,2.2);
-
-    //gui.add(controls, 'monsterRotate',0,360);
+    gui.add(controls, 'cameraRotate',0,360);
 
     // Функция инициализации вывода статистики
     function initStats() {
@@ -77,6 +77,9 @@
         return Math.floor(Math.random() * (max - min + 1)) + min;
     }
 
+    function degInRad(deg) {
+        return deg * Math.PI / 180;
+    }  
 
     //var stats = initStats();
 
@@ -86,6 +89,7 @@
     var camS = 0.05;
     var camW = window.innerWidth*camS;
     var camH = window.innerHeight*camS;
+    //var camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight , 0.1, 1000);
     var camera = new THREE.OrthographicCamera(  camW / - 2, camW / 2, camH / 2, camH / - 2, 1, 31 );
 
     // Добавляем рендер
@@ -242,7 +246,7 @@
     camera.position.x = 0;
     camera.position.y = 0;
     camera.position.z = 30;
-    camera.lookAt(scene.position);
+    //camera.lookAt(scene.position);
 
     // Добавление источника света
     var lightCenter = new THREE.PointLight( 0xffffff );
@@ -267,6 +271,7 @@
     var i = 0;
     var scale=controls.cameraScale;
     var EnvLight = false;
+    var cameraRotate = 0;
     function renderScene() {
         setTimeout(function() {
             if( controls.light != EnvLight ){
@@ -290,13 +295,17 @@
                 camera.updateProjectionMatrix ()
                 scale=controls.cameraScale;
             }
-            
+            if( cameraRotate != controls.cameraRotate ){
+                camera.rotateOnAxis((new THREE.Vector3(0, 0, 1).normalize()), degInRad(-cameraRotate));
+                camera.rotateOnAxis((new THREE.Vector3(0, 0, 1).normalize()), degInRad(controls.cameraRotate));
+                cameraRotate = controls.cameraRotate;
+            }
+
             monsterMaterial.map=monsterTexture[i];
             i++;
             if( i>=22 ){ i=0; }
 
-            camera.position.x = 0; //controls.cameraPositionX;
-            camera.lookAt(scene.position);
+
 
             // перерисовываем статистику и рендер
             //stats.update();
