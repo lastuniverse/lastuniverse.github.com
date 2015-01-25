@@ -19,7 +19,7 @@ function create() {
 }*/
 
 
-var game = new Phaser.Game(800, 600, Phaser.AUTO, 'phaser-example', { preload: preload, create: create, update: update, render: render });
+var game = new Phaser.Game(827, 720, Phaser.WEBGL, 'phaser-example', { preload: preload, create: create, update: update, render: render });
 
 var text;
 var counter = 0;
@@ -34,10 +34,14 @@ function preload () {
     //  The second parameter is the URL of the image (relative)
     game.load.image('einstein', 'assets/bg.png');
     game.load.image('ufo', 'assets/ufo.min.png');
+    game.load.atlasJSONHash('bot', 'assets/running_bot.png', 'assets/running_bot.json');
+    game.load.spritesheet('explosion.01', 'assets/explosion/explosion_01.png', 88, 93, 31);
 
 }
 
 var ufo;
+var explosions = [];
+var anim = [];
 
 function create() {
 
@@ -49,8 +53,9 @@ function create() {
     image.anchor.set(0.5);
 
     //  Enables all kind of input actions on this image (click, etc)
-
-
+    var bot = game.add.sprite(200, 200, 'bot')
+    bot.animations.add('run');
+    bot.animations.play('run', 15, true);
 
     ufo = game.add.sprite(400, 300, 'ufo');
     //ufo.scale.set(0.3);
@@ -60,9 +65,24 @@ function create() {
     text = game.add.text(250, 16, '', { fill: '#ffffff' });
     ufo.events.onInputDown.add(listener, this);
 
-    //  And enable the Sprite to have a physics body:
-    //game.physics.arcade.enable(ufo);
-    game.physics.enable(ufo, Phaser.Physics.ARCADE);
+
+
+    explosions[0] = game.add.sprite(200, 360, 'explosion.01', 0);
+    explosions[0].anchor.set(0.5);
+    explosions[0].scale.set(1.5);
+
+    anim[0] = explosions[0].animations.add('walk');
+
+/*    anim[0].onStart.add(animationStarted, this);
+    anim[0].onLoop.add(animationLooped, this);
+    anim[0].onComplete.add(animationStopped, this);*/
+
+    anim[0].play(10, true);
+
+        //  And enable the Sprite to have a physics body:
+    game.physics.arcade.enable(ufo);
+    game.physics.arcade.enable(explosions[0]);
+    //game.physics.enable(ufo, Phaser.Physics.ARCADE);
     //ufo.body.velocity.y=-25;
 
 }
@@ -74,18 +94,29 @@ function listener () {
 
 }
 
+function animationStarted(sprite, animation) {
+}
+
+function animationLooped(sprite, animation) {
+}
+
+function animationStopped(sprite, animation) {
+}
+
 function update () {
 
     //  If the sprite is > 8px away from the pointer then let's move to it
     if (game.physics.arcade.distanceToPointer(ufo, game.input.activePointer) > 16)
     {
         //  Make the object seek to the active pointer (mouse or touch).
-        game.physics.arcade.moveToPointer(ufo, 700);
+        game.physics.arcade.moveToPointer(ufo, 200);
+        game.physics.arcade.moveToPointer(explosions[0], 100);
     }
     else
     {
         //  Otherwise turn off velocity because we're close enough to the pointer
         ufo.body.velocity.set(0);
+        explosions[0].body.velocity.set(0);
     }
 
 }
