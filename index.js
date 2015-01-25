@@ -19,7 +19,7 @@ function create() {
 }*/
 
 
-var game = new Phaser.Game(827, 720, Phaser.WEBGL, 'phaser-example', { preload: preload, create: create, update: update, render: render });
+var game = new Phaser.Game(827, 720, Phaser.AUTO, 'phaser-example', { preload: preload, create: create, update: update, render: render });
 
 var text;
 var counter = 0;
