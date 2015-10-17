@@ -1,0 +1,46 @@
+.slide_panel_wrap {
+margin:0px auto;
+    width: 100%;
+    height: 100%;
+position:absolute; /*обязательное свойство*/
+overflow:hidden; /*обязательное свойство*/
+border:0px solid #f00;
+}
+
+.slide_panel_wrap canvas.hollo {
+margin:0px auto;
+    width: 100%;
+    height: 100%;
+position:absolute; /*обязательное свойство*/
+overflow:hidden; /*обязательное свойство*/
+border:0px solid #f00;
+opacity: 1;
+z-index: 1
+}
+
+.slide_panel {
+margin-left:-241px; /*обязательное свойство*/
+padding:0px; 
+    width:241px; 
+    height: 100%;
+    top:0; /*обязательное свойство*/
+    left:0; /*обязательное свойство*/
+position:absolute; /*обязательное свойство*/
+border-right:3px solid #111;
+background: #777;
+z-index: 98;
+opacity: 0.8;
+}
+
+.slide_panel img.open {
+padding:0px 0px;
+position:absolute; /*обязательное свойство*/
+top:00px; /*обязательное свойство*/
+left:241px; /*обязательное свойство*/
+border:0px solid #00f;
+cursor:pointer;
+z-index: 99;
+opacity: 0.8;
+}
+
+

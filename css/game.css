@@ -1,0 +1,68 @@
+HTML { 
+  margin: 0px 0px 0px 0px;
+  padding: 0px 0px 0px 0px;
+    width: 100%;
+    height: 100%;
+
+}
+
+BODY {
+  margin: 0px 0px 0px 0px;
+  padding: 0px 0px 0px 0px;
+  background-color: #08a;
+    width: 100%;
+    height: 100%;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+ }
+
+
+div#map_container {
+  position: absolute;
+  overflow: hidden;
+  border: 4px solid #001;
+  opacity: 0.8;
+  z-index: 10;
+}
+
+canvas#map_canvas {
+  background-color: #000;
+  z-index: 20;
+}
+
+
+div#edit_container input.text{
+	width: 90px;
+}
+
+div#edit_container input.checkbox{
+	width: 13px;
+	height: 13px;
+}
+
+textarea#edit_textarea {
+  overflow: scroll;
+  border: 0px solid #001;
+  background-color: #000;
+  color: #fff;
+  font-size: 9;
+}
+
+
+div#test_div {
+  position: absolute;
+  overflow: hidden;
+  border: 0px solid #fff;
+  width: 128px;
+  height: 64px;
+  left: 5px;
+  top: 7px;
+  //z-index: 1;
+  //background-image: url(http://lastuniverse.narod.ru/app/images/grass/trava.128.00.png), url(http://lastuniverse.narod.ru/app/images/sands/sand.00.png);
+  //background-repeat: no-repeat, repeat-y;
+  //background-position:  0px 0px, 0px 64px;
+}
+
