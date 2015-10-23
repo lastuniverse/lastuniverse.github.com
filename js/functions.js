@@ -74,11 +74,11 @@ function fullScreen() {
     if( fullscreen_flag ){
         fullscreen_flag = false;
         fullScreenOFF();
-        btn.value='свернуть';
+        btn.value='развернуть на весь экран';
     }else{
         fullscreen_flag = true;
         fullScreenON();
-        btn.value='развернуть на весь экран';
+        btn.value='свернуть';
     }
 }
 
