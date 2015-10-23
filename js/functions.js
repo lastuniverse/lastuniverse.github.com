@@ -67,3 +67,43 @@ function fixWhich(e) {
   }
   return e;
 }
+
+var fullscreen_flag = false;
+function fullScreen() {
+    var btn = document.getElementById('fullscreen_button');
+    if( fullscreen_flag ){
+        fullscreen_flag = false;
+        fullScreenOFF();
+        btn.value='свернуть';
+    }else{
+        fullscreen_flag = true;
+        fullScreenON();
+        btn.value='развернуть на весь экран';
+    }
+}
+
+
+function fullScreenON() {
+    var doc = document.body;
+    if(doc.requestFullscreen){
+      doc.requestFullscreen();
+    }
+    else if(doc.mozRequestFullScreen){
+      doc.mozRequestFullScreen();
+    }
+    else if(doc.webkitRequestFullScreen){
+      doc.webkitRequestFullScreen();
+    }
+}
+
+function fullScreenOFF() {
+    if(document.exitFullscreen){
+      document.exitFullscreen();
+    }
+    else if(document.mozCancelFullScreen){
+      document.mozCancelFullScreen();
+    }
+    else if(document.webkitCancelFullScreen){
+      document.webkitCancelFullScreen();
+    }
+}
